@@ -40,8 +40,7 @@ $search_listing_text = $search_btn_ph ? $search_btn_ph : get_directorist_option(
 			);
 			$top_categories = get_categories( $args );
 
-			if ( $top_categories ) {
-				?>
+			if ( $top_categories ) { ?>
 				<div class="directory_home_category_area">
 					<ul>
 						<?php
@@ -60,12 +59,9 @@ $search_listing_text = $search_btn_ph ? $search_btn_ph : get_directorist_option(
 						?>
 					</ul>
 				</div>
-				<?php
-			}
-			?>
-
+			<?php } ?>
 		</div>
 	<?php } ?>
 
-		<div class="atbd_submit_btn"> <button type="submit" class="btn-gradient btn-gradient-two"> <?php echo esc_attr( $search_listing_text ); ?> </button></div>
+	<div class="atbd_submit_btn"> <button type="submit" class="btn-gradient btn-gradient-two"> <?php echo esc_attr( $search_listing_text ); ?> </button></div>
 </div>
