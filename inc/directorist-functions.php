@@ -645,43 +645,6 @@ function direo_single_listings_settings_fields( $settings ) {
 
 add_filter( 'atbdp_single_listings_settings_fields', 'direo_single_listings_settings_fields' );
 
-// Directorist all listing cat name.
-function direo_all_categories_after_category_name( $html, $term ) {
-	$count = atbdp_listings_count_by_category( $term->term_id );
-
-	$expired_listings  = atbdp_get_expired_listings( ATBDP_CATEGORY, $term->term_id );
-	$number_of_expired = $expired_listings->post_count;
-	$number_of_expired = ! empty( $number_of_expired ) ? $number_of_expired : '0';
-	$total             = ( $count ) ? ( $count - $number_of_expired ) : $count;
-
-	$categories_settings['show_count'] = get_directorist_option( 'display_listing_count', 1 );
-	if ( ! empty( $categories_settings['show_count'] ) ) {
-		if ( 1 < $total ) {
-			return sprintf( '<span class="badge badge-pill badge-success">%s</span>', esc_attr( $total ) . esc_html__( ' Listings', 'direo-core' ) );
-		} else {
-			return sprintf( '<span class="badge badge-pill badge-success">%s</span>', esc_attr( $total ) . esc_html__( ' Listing', 'direo-core' ) );
-		}
-	}
-}
-
-add_filter( 'atbdp_all_categories_after_category_name', 'direo_all_categories_after_category_name', 10, 2 );
-
-// Directorist all location name.
-function direo_all_locations_after_location_name( $html, $term ) {
-	$count = atbdp_listings_count_by_location( $term->term_id );
-
-	$expired_listings  = atbdp_get_expired_listings( ATBDP_LOCATION, $term->term_id );
-	$number_of_expired = $expired_listings->post_count;
-	$number_of_expired = ! empty( $number_of_expired ) ? $number_of_expired : '0';
-	$total             = ( $count ) ? ( $count - $number_of_expired ) : $count;
-
-	$locations_settings['show_count'] = get_directorist_option( 'display_location_listing_count', 1 );
-	if ( ! empty( $locations_settings['show_count'] ) ) {
-		return 1 < $total ? sprintf( '<p>%s</p>', $total . esc_html__( ' Listings', 'direo-core' ) ) : sprintf( '<p>%s</p>', $total . esc_html__( ' Listing', 'direo-core' ) );
-	}
-}
-
-add_filter( 'atbdp_all_locations_after_location_name', 'direo_all_locations_after_location_name', 10, 2 );
 
 // Directorist atbdp_search_listing dependency maintain.
 function direo_search_listing_jquery_dependency( $search_dependency ) {
@@ -2513,6 +2476,7 @@ function atbdp_popular_category_loop( $counter ) {
 }
 add_filter( 'atbdp_popular_category_loop', 'atbdp_popular_category_loop' );
 
+/* =================After Form Builder ===========================*/
 // Add review & category in dashboard table.
 function directorist_dashboard_listing_th_2(){
 	echo '<th class="directorist-table-review">' . __( 'Review', 'direo' ) . '</th>';
@@ -2598,3 +2562,11 @@ function directorist_dashboard_listing_td_2() {
 	<?php
 }
 add_action( 'directorist_dashboard_listing_td_2', 'directorist_dashboard_listing_td_2' );
+
+function atbdp_all_listings_meta_count( $html, $term ) {
+	$total = $term->count;
+	$str = ( 1 == $total ) ? __( 'Listing', 'direo' ) : __( 'Listings', 'direo' );
+	return '<span> ' . $total . '</span>' . $str;
+}
+add_filter( 'atbdp_all_locations_after_location_name', 'atbdp_all_listings_meta_count', 10, 2 );
+add_filter( 'atbdp_all_categories_after_category_name', 'atbdp_all_listings_meta_count', 10, 2 );

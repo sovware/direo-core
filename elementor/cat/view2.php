@@ -35,7 +35,7 @@ $categories = get_categories( $args );
 			$icon      = 'none' !== $icon ? $icon : 'la-tag';
 			$icon_type = substr( $icon, 0, 2 );
 			$icon      = ( 'la' === $icon_type ) ? $icon_type . ' ' . $icon : 'fa ' . $icon;
-			$cat_count = direo_all_categories_after_category_name( '', $cat );
+			$cat_count = atbdp_all_listings_meta_count( '', $cat );
 			$bg_color  = ' color-' . $i;
 			?>
 
