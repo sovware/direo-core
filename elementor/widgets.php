@@ -3504,36 +3504,42 @@ class Direo_SearchForm extends Widget_Base
         <div id="directorist" class="atbd_wrapper directory_search_area ads-advaced--wrapper search-home-<?php echo esc_attr($style); ?>">
             <div class="row">
                 <div class="<?php echo esc_attr($class); ?>">
-                    <form action="<?php echo class_exists('Directorist_Base') ? ATBDP_Permalink::get_search_result_page_link() : ''; ?>" role="form">
-                        <div class="atbd_seach_fields_wrapper">
-                            <?php
-                            if ('style2' === $style) {
-                                az_template('/elementor/search/view2', $settings);
-                            } elseif ('style3' === $style) {
-                                az_template('/elementor/search/view3', $settings);
-                            } else {
-                                foreach ( $searchform->form_data[0]['fields'] as $field ){
-                                    $searchform->field_template( $field );
-                                }
-                                if ( $searchform->more_filters_display !== 'always_open' ){
-                                    $searchform->more_buttons_template();
-                                }
-                            } ?>
-                        </div>
-                        <?php
-                        if ( $searchform->more_filters_display == 'always_open' ){
-                            $searchform->advanced_search_form_fields_template();
-                        }
-                        else {
-                            if ($searchform->has_more_filters_button) { ?>
-                                <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
-                                    <?php $searchform->advanced_search_form_fields_template();?>
+                    <div class="directorist-search-contents">
+                        <form class="directorist-search-form" action="<?php echo class_exists('Directorist_Base') ? ATBDP_Permalink::get_search_result_page_link() : ''; ?>" role="form">
+                            <div class="directorist-search-form-wrap directorist-with-search-border">
+                                <div class="directorist-search-form-box">
+                                    <div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
+                                        <?php
+                                        if ('style2' === $style) {
+                                            az_template('/elementor/search/view2', $settings);
+                                        } elseif ('style3' === $style) {
+                                            az_template('/elementor/search/view3', $settings);
+                                        } else {
+                                            foreach ( $searchform->form_data[0]['fields'] as $field ){
+                                                $searchform->field_template( $field );
+                                            }
+                                            if ( $searchform->more_filters_display !== 'always_open' ){
+                                                $searchform->more_buttons_template();
+                                            }
+                                        } ?>
+                                    </div>
                                 </div>
-                                <?php
+                            </div>
+                            <?php
+                            if ( $searchform->more_filters_display == 'always_open' ){
+                                $searchform->advanced_search_form_fields_template();
                             }
-                        }
-                        ?>
-                    </form>
+                            else {
+                                if ($searchform->has_more_filters_button) { ?>
+                                    <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
+                                        <?php $searchform->advanced_search_form_fields_template();?>
+                                    </div>
+                                    <?php
+                                }
+                            }
+                            ?>
+                        </form>
+                    </div>
                 </div>
             </div>
             <?php if ('yes' == $popular) : $searchform->top_categories_template(); endif; ?>
