@@ -1,5 +1,7 @@
 <?php
 
+use \Directorist\Directorist_Listing_Search_Form;
+use Directorist\Helper;
 use Elementor\Controls_Manager;
 use Elementor\Core\Schemes;
 use Elementor\Repeater;
@@ -3576,6 +3578,7 @@ class Direo_SearchForm extends Widget_Base
         $popular        = $settings['popular'];
         $popular_count  = $settings['popular_count'];
         $advance        = $settings['advance'];
+        $searchform 	 = new Directorist_Listing_Search_Form( 'search_form', directorist_default_directory() );
 
         if ('style2' === $style) {
             $class = 'col-md-8 offset-md-2';
@@ -3604,92 +3607,31 @@ class Direo_SearchForm extends Widget_Base
                                 } elseif ('style3' === $style) {
                                     az_template('/elementor/search/view3', $settings);
                                 } else {
-                                    az_template('/elementor/search/view1', $settings);
+                                    foreach ( $searchform->form_data[0]['fields'] as $field ){
+                                        $searchform->field_template( $field );
+                                    }
+                                    if ( $searchform->more_filters_display !== 'always_open' ){
+                                        $searchform->more_buttons_template();
+                                    }
                                 } ?>
                             </div>
-                            <?php if ( $advance ) {
-                                direo_more_filter_search_form();
-                            }?>
+                            <?php
+                            if ( $searchform->more_filters_display == 'always_open' ){
+                                $searchform->advanced_search_form_fields_template();
+                            }
+                            else {
+                                if ($searchform->has_more_filters_button) { ?>
+                                    <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
+                                        <?php $searchform->advanced_search_form_fields_template();?>
+                                    </div>
+                                    <?php
+                                }
+                            }
+                            ?>
                         </form>
                     </div>
                 </div>
-                <?php
-                if ('yes' == $popular && 'style3' !== $style) { ?>
-                    <!--Popular need category-->
-                    <div class="row atbdp_listing_top_category">
-                        <div class="col-md-12">
-                            <?php
-                            $args = array(
-                                'type'          => ATBDP_POST_TYPE,
-                                'parent'        => 0,
-                                'orderby'       => 'count',
-                                'order'         => 'desc',
-                                'hide_empty'    => 1,
-                                'number'        => (int) $popular_count,
-                                'taxonomy'      => ATBDP_CATEGORY,
-                                'no_found_rows' => true,
-                            );
-                            $categories = get_categories($args);
-
-                            if ($categories) { ?>
-                                <div class="directory_home_category_area">
-                                    <ul class="categories">
-                                        <?php
-                                        $i = 1;
-                                        foreach ($categories as $cat) {
-                                            $icon      = get_cat_icon($cat->term_id);
-                                            $icon_type = substr($icon, 0, 2);
-                                            $icon      = 'la' === $icon_type ? $icon_type . ' ' . $icon : 'fa ' . $icon;
-                                            $url       = class_exists('Directorist_Base') ? ATBDP_Permalink::atbdp_get_category_page($cat) : '';
-                                            $color  = ' color-' . $i;
-                                            echo sprintf('<li><a href="%s"><span class="%s %s" aria-hidden="true"></span> <p>%s</p></a></li>', esc_url($url), esc_attr($icon), esc_attr($color), esc_attr($cat->name));
-                                            $i++;
-                                            $i = $i > 6 ? $i = 1 : $i;
-                                        }
-                                        ?>
-                                    </ul>
-                                </div>
-                                <?php
-                            } ?>
-                        </div>
-                    </div>
-                    <!--Popular need category-->
-                    <?php 
-                    if (class_exists('Post_Your_Need')) {
-                        $args = array(
-                            'type' => ATBDP_POST_TYPE,
-                            'parent' => 0,
-                            //'orderby' => 'count',
-                            'include' => pyn_get_needs_term_ids(ATBDP_CATEGORY),
-                            'order' => 'desc',
-                            'hide_empty' => 1,
-                            'number' => (int)$popular_count,
-                            'taxonomy' => ATBDP_CATEGORY,
-                            'no_found_rows' => true,
-                        );
-                        $top_categories = get_categories($args);
-                        if ( $top_categories ) {
-                            ?>
-                            <div class="row atbdp_need_top_category" style="display: none">
-                                <div class="col-md-12">
-                                    <div class="directory_home_category_area atbdp_need_top_category">
-                                        <ul class="categories">
-                                            <?php
-                                            foreach ( $top_categories as $cat ) {
-                                                $icon = get_cat_icon($cat->term_id);
-                                                $icon_type = substr($icon, 0, 2);
-                                                $icon = 'la' === $icon_type ? $icon_type . ' ' . $icon : 'fa ' . $icon;
-                                                echo sprintf('<li><a href="%s"><span class="%s" aria-hidden="true"></span> <p>%s</p></a></li>', esc_url(pny_get_category_page($cat)), esc_attr($icon), esc_attr($cat->name));
-                                            }
-                                            wp_reset_postdata(); ?>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php
-                        }
-                    }
-                } ?>
+                <?php $searchform->top_categories_template(); ?>
             </div>
             <?php
         }
