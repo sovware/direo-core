@@ -3350,22 +3350,8 @@ class Direo_SearchForm extends Widget_Base
                     'style1' => __('Style 1', 'direo-core'),
                     'style2' => __('Style 2', 'direo-core'),
                     'style3' => __('Style 3', 'direo-core'),
-                    'style4' => __('Style 4', 'direo-core'),
                 ],
                 'default' => 'style1',
-            ]
-        );
-
-        $this->add_control(
-            'border',
-            [
-                'label'   => __('Show Element Border?', 'direo-core'),
-                'type'    => Controls_Manager::SWITCHER,
-                'default' => 'no',
-                'condition'   => [
-                    'style' => 'style1',
-                    'style!' => 'style4'
-                ]
             ]
         );
 
@@ -3376,7 +3362,7 @@ class Direo_SearchForm extends Widget_Base
                 'type'    => Controls_Manager::SWITCHER,
                 'default' => 'yes',
                 'condition'   => [
-                    'style!' => 'style4'
+                    'style!' => 'style1',
                 ]
             ]
         );
@@ -3389,7 +3375,7 @@ class Direo_SearchForm extends Widget_Base
                 'default' => 'Find',
                 'condition'   => [
                     'text_field' => 'yes',
-                    'style!' => 'style4'
+                    'style!' => 'style1',
                 ]
             ]
         );
@@ -3401,33 +3387,7 @@ class Direo_SearchForm extends Widget_Base
                 'type'        => Controls_Manager::TEXT,
                 'condition'   => [
                     'text_field' => 'yes',
-                    'style!' => 'style4'
-                ]
-            ]
-        );
-
-        $this->add_control(
-            'category_field',
-            [
-                'label'   => __('Show Category Field?', 'direo-core'),
-                'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
-                'condition'   => [
-                    'style' => 'style1',
-                    'style!' => 'style4'
-                ]
-            ]
-        );
-
-        $this->add_control(
-            'category_field_ph',
-            [
-                'label'       => __('Category Field Placeholder', 'direo-core'),
-                'type'        => Controls_Manager::TEXT,
-                'condition'   => [
-                    'category_field' => 'yes',
-                    'style' => 'style1',
-                    'style!' => 'style4'
+                    'style!' => 'style1',
                 ]
             ]
         );
@@ -3439,8 +3399,7 @@ class Direo_SearchForm extends Widget_Base
                 'type'    => Controls_Manager::SWITCHER,
                 'default' => 'yes',
                 'condition'   => [
-                    'style!' => 'style3',
-                    'style!' => 'style4'
+                    'style' => 'style2',
                 ]
             ]
         );
@@ -3453,8 +3412,7 @@ class Direo_SearchForm extends Widget_Base
                 'default'     => 'Where',
                 'condition'   => [
                     'location_field' => 'yes',
-                    'style!' => 'style3',
-                    'style!' => 'style4'
+                    'style' => 'style2',
                 ]
             ]
         );
@@ -3466,20 +3424,7 @@ class Direo_SearchForm extends Widget_Base
                 'type'        => Controls_Manager::TEXT,
                 'condition'   => [
                     'location_field' => 'yes',
-                    'style!' => 'style3',
-                    'style!' => 'style4'
-                ]
-            ]
-        );
-
-        $this->add_control(
-            'search_btn',
-            [
-                'label'   => __('Search Button', 'direo-core'),
-                'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
-                'condition'   => [
-                    'style!' => 'style4'
+                    'style' => 'style2',
                 ]
             ]
         );
@@ -3490,21 +3435,7 @@ class Direo_SearchForm extends Widget_Base
                 'label'       => __('Search Button Placeholder', 'direo-core'),
                 'type'        => Controls_Manager::TEXT,
                 'condition'   => [
-                    'search_btn' => 'yes',
-                    'style!' => 'style4'
-                ]
-            ]
-        );
-
-        $this->add_control(
-            'advance',
-            [
-                'label'   => __('Advance Search Field?', 'direo-core'),
-                'type'    => Controls_Manager::SWITCHER,
-                'default' => 'no',
-                'condition'   => [
-                    'style' => 'style1',
-                    'style!' => 'style4'
+                    'style!' => 'style1',
                 ]
             ]
         );
@@ -3517,26 +3448,8 @@ class Direo_SearchForm extends Widget_Base
                 'default' => 'no',
                 'condition'   => [
                     'style!' => 'style3',
-                    'style!' => 'style4'
                 ]
             ]
-        );
-
-        $this->add_control(
-            'popular_count',
-            [
-                'label'     => __('Number of Popular Categories', 'direo-core'),
-                'type'      => Controls_Manager::NUMBER,
-                'min'       => 1,
-                'max'       => 1000,
-                'default'   => 4,
-                'condition' => [
-                    'popular' => 'yes',
-                    'style!' => 'style3',
-                    'style!' => 'style4'
-                ]
-            ]
-
         );
 
         $this->end_controls_section();
@@ -3574,10 +3487,7 @@ class Direo_SearchForm extends Widget_Base
     {
         $settings       = $this->get_settings_for_display();
         $style          = $settings['style'];
-        $border         = $settings['border'];
         $popular        = $settings['popular'];
-        $popular_count  = $settings['popular_count'];
-        $advance        = $settings['advance'];
         $searchform 	 = new Directorist_Listing_Search_Form( 'search_form', directorist_default_directory() );
 
         if ('style2' === $style) {
@@ -3591,50 +3501,44 @@ class Direo_SearchForm extends Widget_Base
         if (!class_exists('Directorist_Base')) {
             return;
         } ?>
-
-        <?php 
-        if ( 'style4' === $style ) {
-            echo do_shortcode( '[directorist_search_listing]' );
-        }else { ?>
-            <div id="directorist" class="atbd_wrapper directory_search_area ads-advaced--wrapper search-home-<?php echo esc_attr($style); ?>">
-                <div class="row">
-                    <div class="<?php echo esc_attr($class); ?>">
-                        <form action="<?php echo class_exists('Directorist_Base') ? ATBDP_Permalink::get_search_result_page_link() : ''; ?>" role="form">
-                            <div class="atbd_seach_fields_wrapper <?php echo empty($border) ? esc_html('border-0') : ''; ?>">
-                                <?php
-                                if ('style2' === $style) {
-                                    az_template('/elementor/search/view2', $settings);
-                                } elseif ('style3' === $style) {
-                                    az_template('/elementor/search/view3', $settings);
-                                } else {
-                                    foreach ( $searchform->form_data[0]['fields'] as $field ){
-                                        $searchform->field_template( $field );
-                                    }
-                                    if ( $searchform->more_filters_display !== 'always_open' ){
-                                        $searchform->more_buttons_template();
-                                    }
-                                } ?>
-                            </div>
+        <div id="directorist" class="atbd_wrapper directory_search_area ads-advaced--wrapper search-home-<?php echo esc_attr($style); ?>">
+            <div class="row">
+                <div class="<?php echo esc_attr($class); ?>">
+                    <form action="<?php echo class_exists('Directorist_Base') ? ATBDP_Permalink::get_search_result_page_link() : ''; ?>" role="form">
+                        <div class="atbd_seach_fields_wrapper">
                             <?php
-                            if ( $searchform->more_filters_display == 'always_open' ){
-                                $searchform->advanced_search_form_fields_template();
-                            }
-                            else {
-                                if ($searchform->has_more_filters_button) { ?>
-                                    <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
-                                        <?php $searchform->advanced_search_form_fields_template();?>
-                                    </div>
-                                    <?php
+                            if ('style2' === $style) {
+                                az_template('/elementor/search/view2', $settings);
+                            } elseif ('style3' === $style) {
+                                az_template('/elementor/search/view3', $settings);
+                            } else {
+                                foreach ( $searchform->form_data[0]['fields'] as $field ){
+                                    $searchform->field_template( $field );
                                 }
+                                if ( $searchform->more_filters_display !== 'always_open' ){
+                                    $searchform->more_buttons_template();
+                                }
+                            } ?>
+                        </div>
+                        <?php
+                        if ( $searchform->more_filters_display == 'always_open' ){
+                            $searchform->advanced_search_form_fields_template();
+                        }
+                        else {
+                            if ($searchform->has_more_filters_button) { ?>
+                                <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
+                                    <?php $searchform->advanced_search_form_fields_template();?>
+                                </div>
+                                <?php
                             }
-                            ?>
-                        </form>
-                    </div>
+                        }
+                        ?>
+                    </form>
                 </div>
-                <?php $searchform->top_categories_template(); ?>
             </div>
-            <?php
-        }
+            <?php if ('yes' == $popular) : $searchform->top_categories_template(); endif; ?>
+        </div>
+        <?php
     }
 }
 

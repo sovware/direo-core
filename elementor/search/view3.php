@@ -12,7 +12,6 @@ $text_field       = $settings['text_field'];
 $text_field_label = $settings['text_field_label'];
 $text_field_ph    = $settings['text_field_ph'];
 $search_btn_ph    = $settings['search_btn_ph'];
-$search_btn       = $settings['search_btn'];
 
 $require_text        = get_directorist_option( 'require_search_text' ) ? 'required' : '';
 $search_placeholder  = $text_field_ph ? $text_field_ph : get_directorist_option( 'search_placeholder', esc_attr_x( 'What are you looking for?', 'placeholder', 'direo-core' ) );
@@ -68,7 +67,5 @@ $search_listing_text = $search_btn_ph ? $search_btn_ph : get_directorist_option(
 		</div>
 	<?php } ?>
 
-	<?php if ( $search_btn ) { ?>
 		<div class="atbd_submit_btn"> <button type="submit" class="btn-gradient btn-gradient-two"> <?php echo esc_attr( $search_listing_text ); ?> </button></div>
-	<?php } ?>
 </div>

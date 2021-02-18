@@ -15,7 +15,6 @@ $text_field_ph        = $settings['text_field_ph'];
 $location_field_label = $settings['location_field_label'];
 $location_field_ph    = $settings['location_field_ph'];
 $search_btn_ph        = $settings['search_btn_ph'];
-$search_btn           = $settings['search_btn'];
 
 $require_text                = get_directorist_option( 'require_search_text' ) ? 'required' : '';
 $require_loc                 = get_directorist_option( 'require_search_location' ) ? 'required' : '';
@@ -116,9 +115,7 @@ do_action( 'atbdp_before_search_form' ); ?>
 			<?php
 		}
 	}
+	?>
+	<div class="atbd_submit_btn"><button type="submit" class="btn-gradient btn-gradient-two"><?php echo esc_attr( $search_listing_text ); ?> </button></div>
 
-	if ( $search_btn ) {
-		?>
-		<div class="atbd_submit_btn"><button type="submit" class="btn-gradient btn-gradient-two"><?php echo esc_attr( $search_listing_text ); ?> </button></div>
-	<?php } ?>
 </div>
