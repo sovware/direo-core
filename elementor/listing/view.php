@@ -59,7 +59,8 @@ if ( 'yes' == $featured ) {
 			),
 		),
 	);
-} else {
+}
+else {
 	$meta_queries['need_post'] = array(
 		array(
 			'relation' => 'OR',
@@ -118,7 +119,7 @@ $all_listings = new WP_Query( $args );
 							<figure class="atbd_listing_thumbnail_area">
 								<div class="atbd_listing_image">
 									<?php
-									the_post_thumbnail('full');
+									the_post_thumbnail( 'full' );
 									if ( $display_author_image ) {
 										$author    = get_userdata( $author_id );
 										$image_alt = function_exists( 'direo_get_image_alt' ) ? direo_get_image_alt( $u_pro_pic_id ) : '';
