@@ -3539,10 +3539,10 @@ class Direo_SearchForm extends Widget_Base
                             }
                             ?>
                         </form>
+                        <?php if ('yes' == $popular) : $searchform->top_categories_template(); endif; ?>
                     </div>
                 </div>
             </div>
-            <?php if ('yes' == $popular) : $searchform->top_categories_template(); endif; ?>
         </div>
         <?php
     }
