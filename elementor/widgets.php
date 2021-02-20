@@ -734,6 +734,34 @@ class Direo_Categories extends Widget_Base
         );
 
         $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+                'condition' => [
+                    'cat_type!' => ['style3'],
+                ]
+            ]
+        );
+
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
+                'condition' => [
+                    'cat_type!' => ['style3'],
+                ]
+            ]
+        );
+
+        $this->add_control(
             'cat_type',
             [
                 'label'   => __('Style', 'direo-core'),
@@ -872,6 +900,34 @@ class Direo_Locations extends Widget_Base
             'locations',
             [
                 'label' => __('Listing Locations', 'direo-core'),
+            ]
+        );
+
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+                'condition' => [
+                    'layout' => ['grid','list'],
+                ]
+            ]
+        );
+
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
+                'condition' => [
+                    'layout' => ['grid','list'],
+                ]
             ]
         );
 
@@ -1626,6 +1682,28 @@ class Direo_Listings extends Widget_Base
             'listings',
             [
                 'label' => __('Listings', 'direo-core'),
+            ]
+        );
+
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+            ]
+        );
+
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
             ]
         );
 
@@ -3507,6 +3585,9 @@ class Direo_SearchForm extends Widget_Base
                     <div class="directorist-search-contents">
                         <form class="directorist-search-form" action="<?php echo class_exists('Directorist_Base') ? ATBDP_Permalink::get_search_result_page_link() : ''; ?>" role="form">
                             <div class="directorist-search-form-wrap directorist-with-search-border">
+                            <?php $searchform->directory_type_nav_template(); ?>
+
+                            <input type="hidden" name="directory_type" id="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
                                 <div class="directorist-search-form-box">
                                     <div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
                                         <?php
@@ -3582,6 +3663,28 @@ class Direo_SearchResult extends Widget_Base
             'search_result',
             [
                 'label' => __('Search Result', 'direo-core'),
+            ]
+        );
+
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+            ]
+        );
+        
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
             ]
         );
 
@@ -3728,6 +3831,8 @@ class Direo_SearchResult extends Widget_Base
     protected function render()
     {
         $settings        = $this->get_settings_for_display();
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
         $header          = $settings['header'];
         $show_pagination = $settings['show_pagination'];
         $layout          = $settings['layout'];
@@ -3739,7 +3844,7 @@ class Direo_SearchResult extends Widget_Base
         $user            = $settings['user'];
         $web             = 'yes' == $user ? $settings['link']['url'] : '';
 
-        echo do_shortcode('[directorist_search_result view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" header="' . esc_attr($header) . '" columns="' . esc_attr($row) . '" show_pagination="' . esc_attr($show_pagination) . '" map_height="' . $map_height . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" ]');
+        echo do_shortcode('[directorist_search_result view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" header="' . esc_attr($header) . '" columns="' . esc_attr($row) . '" show_pagination="' . esc_attr($show_pagination) . '" map_height="' . $map_height . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '"]');
     }
 }
 
@@ -3986,6 +4091,28 @@ class Direo_SingleCat extends Widget_Base
         );
 
         $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+            ]
+        );
+        
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
+            ]
+        );
+
+        $this->add_control(
             'header',
             [
                 'label'   => __('Show Header?', 'direo-core'),
@@ -4211,6 +4338,8 @@ class Direo_SingleCat extends Widget_Base
     protected function render()
     {
         $settings        = $this->get_settings_for_display();
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
         $header          = $settings['header'];
         $filter          = 'yes' == $settings['filter'] ? $settings['filter'] : 'no';
         $sidebar         = $settings['sidebar'];
@@ -4230,7 +4359,7 @@ class Direo_SingleCat extends Widget_Base
         $user            = $settings['user'];
         $web             = 'yes' == $user ? $settings['link']['url'] : '';
 
-        echo do_shortcode('[directorist_category view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" popular_only="' . esc_attr($popular) . '" header="' . esc_attr($header) . '" header_title ="' . esc_attr($title) . '" columns="' . esc_attr($row) . '" action_before_after_loop="' . esc_attr($sidebar) . '" show_pagination="' . esc_attr($show_pagination) . '" advanced_filter="' . esc_attr($filter) . '" map_height="' . $map_height . '" display_preview_image="yes" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" ]');
+        echo do_shortcode('[directorist_category view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" popular_only="' . esc_attr($popular) . '" header="' . esc_attr($header) . '" header_title ="' . esc_attr($title) . '" columns="' . esc_attr($row) . '" action_before_after_loop="' . esc_attr($sidebar) . '" show_pagination="' . esc_attr($show_pagination) . '" advanced_filter="' . esc_attr($filter) . '" map_height="' . $map_height . '" display_preview_image="yes" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '"]');
     }
 }
 
@@ -4479,6 +4608,28 @@ class Direo_SingleLoc extends Widget_Base
         );
 
         $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+            ]
+        );
+        
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
+            ]
+        );
+
+        $this->add_control(
             'header',
             [
                 'label'   => __('Show Header?', 'direo-core'),
@@ -4706,6 +4857,8 @@ class Direo_SingleLoc extends Widget_Base
     {
         $settings        = $this->get_settings_for_display();
         $header          = $settings['header'];
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
         $filter          = 'yes' == $settings['filter'] ? $settings['filter'] : 'no';
         $sidebar         = $settings['sidebar'];
         $show_pagination = $settings['show_pagination'];
@@ -4724,7 +4877,7 @@ class Direo_SingleLoc extends Widget_Base
         $user            = $settings['user'];
         $web             = 'yes' == $user ? $settings['link']['url'] : '';
 
-        echo do_shortcode('[directorist_location view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" popular_only="' . esc_attr($popular) . '" header="' . esc_attr($header) . '" header_title ="' . esc_attr($title) . '" columns="' . esc_attr($row) . '" action_before_after_loop="' . esc_attr($sidebar) . '" show_pagination="' . esc_attr($show_pagination) . '" advanced_filter="' . esc_attr($filter) . '" map_height="' . $map_height . '" display_preview_image="yes" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" ]');
+        echo do_shortcode('[directorist_location view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" popular_only="' . esc_attr($popular) . '" header="' . esc_attr($header) . '" header_title ="' . esc_attr($title) . '" columns="' . esc_attr($row) . '" action_before_after_loop="' . esc_attr($sidebar) . '" show_pagination="' . esc_attr($show_pagination) . '" advanced_filter="' . esc_attr($filter) . '" map_height="' . $map_height . '" display_preview_image="yes" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '"]');
     }
 }
 
@@ -4973,6 +5126,28 @@ class Direo_SingleTag extends Widget_Base
         );
 
         $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+            ]
+        );
+        
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
+            ]
+        );
+
+        $this->add_control(
             'header',
             [
                 'label'   => __('Show Header?', 'direo-core'),
@@ -5199,6 +5374,8 @@ class Direo_SingleTag extends Widget_Base
     {
         $settings        = $this->get_settings_for_display();
         $header          = $settings['header'];
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
         $filter          = 'yes' == $settings['filter'] ? $settings['filter'] : 'no';
         $sidebar         = $settings['sidebar'];
         $show_pagination = $settings['show_pagination'];
@@ -5217,7 +5394,7 @@ class Direo_SingleTag extends Widget_Base
         $user            = $settings['user'];
         $web             = 'yes' == $user ? $settings['link']['url'] : '';
 
-        echo do_shortcode('[directorist_tag view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" popular_only="' . esc_attr($popular) . '" header="' . esc_attr($header) . '" header_title ="' . esc_attr($title) . '" columns="' . esc_attr($row) . '" action_before_after_loop="' . esc_attr($sidebar) . '" show_pagination="' . esc_attr($show_pagination) . '" advanced_filter="' . esc_attr($filter) . '" map_height="' . $map_height . '" display_preview_image="yes" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" ]');
+        echo do_shortcode('[directorist_tag view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" popular_only="' . esc_attr($popular) . '" header="' . esc_attr($header) . '" header_title ="' . esc_attr($title) . '" columns="' . esc_attr($row) . '" action_before_after_loop="' . esc_attr($sidebar) . '" show_pagination="' . esc_attr($show_pagination) . '" advanced_filter="' . esc_attr($filter) . '" map_height="' . $map_height . '" display_preview_image="yes" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '"]');
     }
 }
 
