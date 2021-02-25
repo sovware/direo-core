@@ -3585,9 +3585,9 @@ class Direo_SearchForm extends Widget_Base
                     <div class="directorist-search-contents">
                         <form class="directorist-search-form" action="<?php echo class_exists('Directorist_Base') ? ATBDP_Permalink::get_search_result_page_link() : ''; ?>" role="form">
                             <div class="directorist-search-form-wrap directorist-with-search-border">
-                            <?php $searchform->directory_type_nav_template(); ?>
+                                <?php $searchform->directory_type_nav_template(); ?>
 
-                            <input type="hidden" name="directory_type" id="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
+                                <input type="hidden" name="directory_type" id="listing_type" value="<?php echo esc_attr( $searchform->listing_type_slug() ); ?>">
                                 <div class="directorist-search-form-box">
                                     <div class="directorist-search-form-top directorist-flex directorist-align-center directorist-search-form-inline">
                                         <?php
@@ -3607,15 +3607,17 @@ class Direo_SearchForm extends Widget_Base
                                 </div>
                             </div>
                             <?php
-                            if ( $searchform->more_filters_display == 'always_open' ){
-                                $searchform->advanced_search_form_fields_template();
-                            }
-                            else {
-                                if ($searchform->has_more_filters_button) { ?>
-                                    <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
-                                        <?php $searchform->advanced_search_form_fields_template();?>
-                                    </div>
-                                    <?php
+                            if ( 'style1' === $style ) {
+                                if ( $searchform->more_filters_display == 'always_open' ){
+                                    $searchform->advanced_search_form_fields_template();
+                                }
+                                else {
+                                    if ($searchform->has_more_filters_button) { ?>
+                                        <div class="<?php Helper::search_filter_class( $searchform->more_filters_display ); ?>">
+                                            <?php $searchform->advanced_search_form_fields_template();?>
+                                        </div>
+                                        <?php
+                                    }
                                 }
                             }
                             ?>
