@@ -1280,20 +1280,6 @@ function all_listings_wrapper() {
 	return 'all-listings-carousel owl-carousel';
 }
 
-function need_count( $html, $term ) {
-	$count         = atbdp_listings_count_by_category( $term->term_id );
-	$expired       = atbdp_get_expired_listings( ATBDP_CATEGORY, $term->term_id );
-	$count_expired = $expired->post_count;
-	$count_expired = ! empty( $count_expired ) ? $count_expired : '0';
-	$total         = ( $count ) ? ( $count - $count_expired ) : $count;
-
-	if ( 1 < $total ) {
-		return sprintf( '<span>%s</span>', esc_attr( $total ) . __( ' Listings', 'direo-core' ) );
-	} else {
-		return sprintf( '<span>%s</span>', esc_attr( $total ) . __( ' Listing', 'direo-core' ) );
-	}
-}
-
 // popular category team.
 function search_home_popular_category( $counter ) {
 	 $color = 'color-' . $counter;
