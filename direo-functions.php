@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Direo Core
-Plugin URI: https://aazztech.com/product/category/themes/wordpress/direo/
+Plugin URI: https://directorist.com/
 Description: Core plugin of direo.
-Author: AazzTech
-Author URI: https://aazzztech.com
+Author: wpWax
+Author URI: https://wpwax.com
 Domain Path: /languages
 Text Domain: direo-core
 Version: 2.2
