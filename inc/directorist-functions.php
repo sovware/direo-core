@@ -847,10 +847,6 @@ add_filter( 'include_style_settings', '__return_false' );
 add_filter( 'wallet_dashboard_content_area_title', '__return_false' );
 add_filter( 'atbdp_show_gallery_image_in_plan', '__return_false' );
 add_filter( 'atbdp_plan_gallery_compare', '__return_true' );
-
-//add_action( 'atbdp_user_dashboard_booking_header_area', '__return_false' );
-// Removed extensions licence key's.
-//add_filter( 'atbdp_licence_menu_for_booking', '__return_false' );
 add_filter( 'atbdp_licence_menu_for_business_hours', '__return_false' );
 add_filter( 'atbdp_licence_menu_for_claim_listing', '__return_false' );
 add_filter( 'atbdp_licence_menu_for_faqs', '__return_false' );
@@ -1277,7 +1273,7 @@ function is_create_booking_database() {
 add_action( 'plugins_loaded', 'is_create_booking_database' );
 
 function all_listings_wrapper() {
-	return 'all-listings-carousel owl-carousel ';
+	echo ' all-listings-carousel owl-carousel ';
 }
 
 // popular category team.

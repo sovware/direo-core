@@ -46,6 +46,7 @@ if ( ! empty( $btn['url'] ) ) {
 
 if ( 'carousel' === $layout ) {
 	add_filter( 'all_listings_wrapper', 'all_listings_wrapper' );
+	add_filter( 'all_listings_column', function(){ return ''; } );
 	if ( $section_title || $view_more_label ) { ?>
 		<div class="all_listing_header">
 			<h1><?php echo esc_attr( $section_title ); ?></h1>
