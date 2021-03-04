@@ -7,6 +7,11 @@
  * @since   1.0
  * @version 1.0
  */
+
+if ( ! class_exists( 'Directorist_Base' ) ) {
+	return;
+}
+
 $attr = '';
 $default_types	 = $settings['default_types'];
 $types           = $settings['types'] ? implode( ',', $settings['types'] ) : '';
