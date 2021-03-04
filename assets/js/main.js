@@ -60,7 +60,7 @@ jQuery(document).ready(function(){
     });
 
     //listing slider
-    $(".all-listings-carousel").owlCarousel({
+    $("#listing-carousel .all-listings-carousel").owlCarousel({
       items: 3,
       nav: true,
       navText: [
@@ -88,6 +88,34 @@ jQuery(document).ready(function(){
       },
     });
 
+    //listing slider
+    $("#listing-carousel-2 .all-listings-carousel").owlCarousel({
+      items: 5,
+      nav: true,
+      navText: [
+        '<span class="la la-angle-left"></span>',
+        '<span class="la la-angle-right"></span>',
+      ],
+      dots: false,
+      margin: 30,
+      responsive: {
+        0: {
+          items: 1,
+        },
+        400: {
+          items: 1,
+        },
+        575: {
+          items: 2,
+        },
+        767: {
+          items: 3,
+        },
+        991: {
+          items: 5,
+        },
+      },
+    });
 
     //search field
     $(".search_query .search_fields").keyup(function(){
