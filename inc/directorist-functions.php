@@ -1277,7 +1277,7 @@ function is_create_booking_database() {
 add_action( 'plugins_loaded', 'is_create_booking_database' );
 
 function all_listings_wrapper() {
-	return 'all-listings-carousel owl-carousel';
+	return 'all-listings-carousel owl-carousel ';
 }
 
 // popular category team.
