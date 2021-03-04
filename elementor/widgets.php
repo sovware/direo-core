@@ -2043,7 +2043,27 @@ class Direo_ListingsCarousel extends Widget_Base
                 'label' => __('Listings Carousel', 'direo-core'),
             ]
         );
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+            ]
+        );
 
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
+            ]
+        );
         $this->add_control(
             'featured',
             [
@@ -2052,7 +2072,14 @@ class Direo_ListingsCarousel extends Widget_Base
                 'default' => 'no',
             ]
         );
-
+        $this->add_control(
+            'popular',
+            [
+                'label'   => __('Show Popular Listing Only?', 'direo-core'),
+                'type'    => Controls_Manager::SWITCHER,
+                'default' => 'no',
+            ]
+        );
         $this->add_control(
             'list_num',
             [
@@ -2061,33 +2088,6 @@ class Direo_ListingsCarousel extends Widget_Base
                 'min'     => 1,
                 'max'     => 100,
                 'default' => 6,
-            ]
-        );
-
-        $this->add_control(
-            'contact',
-            [
-                'label'   => __('Show Address?', 'direo-core'),
-                'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'phone',
-            [
-                'label'   => __('Show Phone?', 'direo-core'),
-                'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
-            ]
-        );
-
-        $this->add_control(
-            'date',
-            [
-                'label'   => __('Show Listing Publish Date?', 'direo-core'),
-                'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
             ]
         );
 
@@ -2595,644 +2595,6 @@ class Direo_Logos extends Widget_Base
             } ?>
         </div>
         <?php
-    }
-}
-
-if (class_exists('Post_Your_Need')) {
-    //Need categories
-    class Direo_NeedCategories extends Widget_Base
-    {
-        public function get_name()
-        {
-            return 'need_categories';
-        }
-
-        public function get_title()
-        {
-            return __('Need Categories', 'direo-core');
-        }
-
-        public function get_icon()
-        {
-            return ' far fa-question-circle';
-        }
-
-        public function get_keywords()
-        {
-            return ['need', 'categories', 'need categories',];
-        }
-
-        public function get_categories()
-        {
-            return ['direo_category'];
-        }
-
-        protected function _register_controls()
-        {
-            $this->start_controls_section(
-                'need_categories',
-                [
-                    'label' => __('Need Categories', 'direo-core'),
-                ]
-            );
-
-            $this->add_control(
-                'layout',
-                [
-                    'label'   => __('Category Layout', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => 'grid',
-                    'options' => [
-                        'grid' => esc_html__('Grid View', 'direo-core'),
-                        'list' => esc_html__('List View', 'direo-core'),
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'cat_style',
-                [
-                    'label'   => __('Category Style', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => 'category-style1',
-                    'options' => [
-                        'category-style1'    => esc_html__('Style 1', 'direo-core'),
-                        'category-style-two' => esc_html__('Style 2', 'direo-core'),
-                    ],
-                    'condition' => [
-                        'layout' => 'grid',
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'row',
-                [
-                    'label'   => __('Categories Per Row', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => '2',
-                    'options' => [
-                        '5' => esc_html__('5 Items / Row', 'direo-core'),
-                        '4' => esc_html__('4 Items / Row', 'direo-core'),
-                        '3' => esc_html__('3 Items / Row', 'direo-core'),
-                        '2' => esc_html__('2 Items / Row', 'direo-core'),
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'number_cat',
-                [
-                    'label'   => __('Number of categories to Show:', 'direo-core'),
-                    'type'    => Controls_Manager::NUMBER,
-                    'min'     => 1,
-                    'max'     => 1000,
-                    'step'    => 1,
-                    'default' => 4,
-                ]
-            );
-
-            $this->add_control(
-                'order_by',
-                [
-                    'label'   => __('Order by', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => 'id',
-                    'options' => [
-                        'id'    => esc_html__(' Cat ID', 'direo-core'),
-                        'count' => esc_html__('Needs Count', 'direo-core'),
-                        'name'  => esc_html__(' Category name (A-Z)', 'direo-core'),
-                        'slug'  => esc_html__('Select Category', 'direo-core'),
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'slug',
-                [
-                    'label'    => __('Specify Locations', 'direo-core'),
-                    'type'     => Controls_Manager::SELECT2,
-                    'multiple' => true,
-                    'options'  => function_exists('direo_listing_category') ? direo_listing_category() : [],
-                ]
-            );
-
-            $this->add_control(
-                'order_list',
-                [
-                    'label'   => __('Locations Order', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => 'desc',
-                    'options' => [
-                        'asc'  => esc_html__(' ASC', 'direo-core'),
-                        'desc' => esc_html__(' DESC', 'direo-core'),
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'user',
-                [
-                    'label'   => __('Only For Logged In User?', 'direo-core'),
-                    'type'    => Controls_Manager::SWITCHER,
-                    'default' => 'no',
-                ]
-            );
-
-            $this->add_control(
-                'redirect',
-                [
-                    'label'   => __('Redirect User?', 'direo-core'),
-                    'type'    => Controls_Manager::SWITCHER,
-                    'default' => 'no',
-                ]
-            );
-
-            $this->add_control(
-                'link',
-                [
-                    'label'     => __('Redirect Link', 'direo-core'),
-                    'type'      => Controls_Manager::URL,
-                    'condition' => [
-                        'redirect' => 'yes'
-                    ]
-                ]
-            );
-
-            $this->end_controls_section();
-        }
-
-        protected function render()
-        {
-            $settings   = $this->get_settings_for_display();
-            $number_cat = $settings['number_cat'];
-            $order_by   = $settings['order_by'];
-            $order_list = $settings['order_list'];
-            $row        = $settings['row'];
-            $slug       = $settings['slug'] ? implode(',', $settings['slug']) : '';
-            $cat_style  = $settings['cat_style'];
-            $layout     = $settings['layout'];
-            $user       = $settings['user'];
-            $web        = 'yes' == $user ? $settings['link']['url'] : ''; ?>
-
-            <div id="<?php echo esc_attr($cat_style); ?>">
-                <?php echo do_shortcode('[directorist_need_categories view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" cat_per_page="' . esc_attr($number_cat) . '" columns="' . esc_attr($row) . '" slug="' . esc_attr($slug) . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '"]'); ?>
-            </div>
-            <?php
-        }
-    }
-
-    //Need locations
-    class Direo_NeedLocations extends Widget_Base
-    {
-        public function get_name()
-        {
-            return 'need_locations';
-        }
-
-        public function get_title()
-        {
-            return __('Need Locations', 'direo-core');
-        }
-
-        public function get_icon()
-        {
-            return ' far fa-question-circle';
-        }
-
-        public function get_categories()
-        {
-            return ['direo_category'];
-        }
-
-        public function get_keywords()
-        {
-            return ['locations', 'need locations',];
-        }
-
-        protected function _register_controls()
-        {
-            $this->start_controls_section(
-                'need_locations',
-                [
-                    'label' => __('Need Locations', 'direo-core'),
-                ]
-            );
-
-            $this->add_control(
-                'layout',
-                [
-                    'label'   => __('Locations Layout', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => 'grid',
-                    'options' => [
-                        'grid' => esc_html__('Grid View', 'direo-core'),
-                        'list' => esc_html__('List View', 'direo-core'),
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'row',
-                [
-                    'label'   => __('Location Per Row', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => '3',
-                    'options' => [
-                        '5' => esc_html__('5 Items / Row', 'direo-core'),
-                        '4' => esc_html__('4 Items / Row', 'direo-core'),
-                        '3' => esc_html__('3 Items / Row', 'direo-core'),
-                        '2' => esc_html__('2 Items / Row', 'direo-core'),
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'number_loc',
-                [
-                    'label'   => __('Number of locations to Show:', 'direo-core'),
-                    'type'    => Controls_Manager::NUMBER,
-                    'min'     => 1,
-                    'max'     => 1000,
-                    'step'    => 1,
-                    'default' => 4,
-                ]
-            );
-
-            $this->add_control(
-                'order_by',
-                [
-                    'label'   => __('Order by', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => 'id',
-                    'options' => [
-                        'id'    => esc_html__(' Cat ID', 'direo-core'),
-                        'count' => esc_html__('Needs Count', 'direo-core'),
-                        'name'  => esc_html__(' Category name (A-Z)', 'direo-core'),
-                        'slug'  => esc_html__('Select Category', 'direo-core'),
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'slug',
-                [
-                    'label'    => __('Specify Locations', 'direo-core'),
-                    'type'     => Controls_Manager::SELECT2,
-                    'multiple' => true,
-                    'options'  => function_exists('direo_listing_locations') ? direo_listing_locations() : []
-                ]
-            );
-
-            $this->add_control(
-                'order_list',
-                [
-                    'label'   => __('Locations Order', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => 'desc',
-                    'options' => [
-                        'asc'  => esc_html__(' ASC', 'direo-core'),
-                        'desc' => esc_html__(' DESC', 'direo-core'),
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'user',
-                [
-                    'label'   => __('Only For Logged In User?', 'direo-core'),
-                    'type'    => Controls_Manager::SWITCHER,
-                    'default' => 'no',
-                ]
-            );
-
-            $this->add_control(
-                'redirect',
-                [
-                    'label'   => __('Redirect User?', 'direo-core'),
-                    'type'    => Controls_Manager::SWITCHER,
-                    'default' => 'no',
-                ]
-            );
-
-            $this->add_control(
-                'link',
-                [
-                    'label'     => __('Redirect Link', 'direo-core'),
-                    'type'      => Controls_Manager::URL,
-                    'condition' => [
-                        'redirect' => 'yes'
-                    ]
-                ]
-            );
-
-            $this->end_controls_section();
-        }
-
-        protected function render()
-        {
-            $settings   = $this->get_settings_for_display();
-            $number_loc = $settings['number_loc'];
-            $order_by   = $settings['order_by'];
-            $order_list = $settings['order_list'];
-            $row        = $settings['row'];
-            $slug       = $settings['slug'] ? implode(',', $settings['slug']) : '';
-            $layout     = $settings['layout'];
-            $user       = $settings['user'];
-            $web        = 'yes' == $user ? $settings['link']['url'] : '';
-
-            echo do_shortcode('[directorist_need_locations view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" loc_per_page="' . esc_attr($number_loc) . '" columns="' . esc_attr($row) . '" slug="' . esc_attr($slug) . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '"]');
-        }
-    }
-
-    //Need single category
-    class Direo_NeedSingleCat extends Widget_Base
-    {
-        public function get_name()
-        {
-            return 'need_single_category';
-        }
-
-        public function get_title()
-        {
-            return __('Need Single Category', 'direo-core');
-        }
-
-        public function get_icon()
-        {
-            return ' far fa-question-circle';
-        }
-
-        public function get_keywords()
-        {
-            return ['single category', 'need category', 'category',];
-        }
-
-        public function get_categories()
-        {
-            return ['direo_category'];
-        }
-
-        protected function _register_controls()
-        {
-            $this->start_controls_section(
-                'need_single_category',
-                [
-                    'label' => __('Need Single Category', 'direo-core'),
-                ]
-            );
-
-            $this->add_control(
-                'number',
-                [
-                    'label'   => __('Number of Needs to Show:', 'direo-core'),
-                    'type'    => Controls_Manager::NUMBER,
-                    'min'     => 1,
-                    'max'     => 100,
-                    'default' => 3,
-                ]
-            );
-
-            $this->add_control(
-                'pagination',
-                [
-                    'label'   => __('Show Pagination?', 'direo-core'),
-                    'type'    => Controls_Manager::SWITCHER,
-                    'default' => 'yes',
-                ]
-            );
-
-            $this->end_controls_section();
-        }
-
-        protected function render()
-        {
-            $settings   = $this->get_settings_for_display();
-            $number     = $settings['number'];
-            $pagination = $settings['pagination'];
-
-            echo do_shortcode('[directorist_need_category listings_per_page="' . $number . '" show_pagination="' . $pagination . '"]');
-        }
-    }
-
-    //Need single location
-    class Direo_NeedSingleLoc extends Widget_Base
-    {
-        public function get_name()
-        {
-            return 'need_single_location';
-        }
-
-        public function get_title()
-        {
-            return __('Need Single Location', 'direo-core');
-        }
-
-        public function get_icon()
-        {
-            return ' far fa-question-circle';
-        }
-
-        public function get_keywords()
-        {
-            return ['single location', 'need location', 'location',];
-        }
-
-        public function get_categories()
-        {
-            return ['direo_category'];
-        }
-
-        protected function _register_controls()
-        {
-            $this->start_controls_section(
-                'need_single_location',
-                [
-                    'label' => __('Need Single Location', 'direo-core'),
-                ]
-            );
-
-            $this->add_control(
-                'number',
-                [
-                    'label'   => __('Number of Needs to Show:', 'direo-core'),
-                    'type'    => Controls_Manager::NUMBER,
-                    'min'     => 1,
-                    'max'     => 100,
-                    'default' => 3,
-                ]
-            );
-
-            $this->add_control(
-                'pagination',
-                [
-                    'label'   => __('Show Pagination?', 'direo-core'),
-                    'type'    => Controls_Manager::SWITCHER,
-                    'default' => 'yes',
-                ]
-            );
-
-            $this->end_controls_section();
-        }
-
-        protected function render()
-        {
-            $settings   = $this->get_settings_for_display();
-            $number     = $settings['number'];
-            $pagination = $settings['pagination'];
-
-            echo do_shortcode('[directorist_need_location listings_per_page="' . $number . '" show_pagination="' . $pagination . '"]');
-        }
-    }
-
-    //Needs
-    class Direo_Needs extends Widget_Base
-    {
-        public function get_name()
-        {
-            return 'needs';
-        }
-
-        public function get_title()
-        {
-            return __('All Needs', 'direo-core');
-        }
-
-        public function get_icon()
-        {
-            return ' far fa-question-circle';
-        }
-
-        public function get_keywords()
-        {
-            return ['need',];
-        }
-
-        public function get_categories()
-        {
-            return ['direo_category'];
-        }
-
-        protected function _register_controls()
-        {
-            $this->start_controls_section(
-                'needs',
-                [
-                    'label' => __('All Needs', 'direo-core'),
-                ]
-            );
-
-            $this->add_control(
-                'avatar',
-                [
-                    'label'   => __('Show Author Avatar?', 'direo-core'),
-                    'type'    => Controls_Manager::SWITCHER,
-                    'default' => 'yes',
-                ]
-            );
-
-            $this->add_control(
-                'category',
-                [
-                    'label'   => __('Show Category?', 'direo-core'),
-                    'type'    => Controls_Manager::SWITCHER,
-                    'default' => 'yes',
-                ]
-            );
-
-            $this->add_control(
-                'budget',
-                [
-                    'label'   => __('Show Budget Amount?', 'direo-core'),
-                    'type'    => Controls_Manager::SWITCHER,
-                    'default' => 'yes',
-                ]
-            );
-
-            $this->add_control(
-                'columns',
-                [
-                    'label'   => __('Needs Per Row', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => '3',
-                    'options' => [
-                        '5' => esc_html__('5 Items / Row', 'direo-core'),
-                        '4' => esc_html__('4 Items / Row', 'direo-core'),
-                        '3' => esc_html__('3 Items / Row', 'direo-core'),
-                        '2' => esc_html__('2 Items / Row', 'direo-core'),
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'order_by',
-                [
-                    'label'   => __('Order by', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => 'date',
-                    'options' => [
-                        'ID'            => esc_html__(' Post ID', 'direo-core'),
-                        'author'        => esc_html__(' Author', 'direo-core'),
-                        'title'         => esc_html__(' Title', 'direo-core'),
-                        'name'          => esc_html__(' Post name (post slug)', 'direo-core'),
-                        'type'          => esc_html__(' Post type (available since Version 4.0)', 'direo-core'),
-                        'date'          => esc_html__(' Date', 'direo-core'),
-                        'modified'      => esc_html__(' Last modified date', 'direo-core'),
-                        'rand'          => esc_html__(' Random order', 'direo-core'),
-                        'comment_count' => esc_html__(' Number of comments', 'direo-core')
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'order_list',
-                [
-                    'label'   => __('Order post', 'direo-core'),
-                    'type'    => Controls_Manager::SELECT,
-                    'default' => 'DESC',
-                    'options' => [
-                        'ASC'  => esc_html__(' ASC', 'direo-core'),
-                        'DESC' => esc_html__(' DESC', 'direo-core'),
-                    ],
-                ]
-            );
-
-            $this->add_control(
-                'number',
-                [
-                    'label'   => __('Number of Needs to Show:', 'direo-core'),
-                    'type'    => Controls_Manager::NUMBER,
-                    'min'     => 1,
-                    'max'     => 100,
-                    'default' => 6,
-                ]
-            );
-
-            $this->add_control(
-                'pagination',
-                [
-                    'label'   => __('Show Pagination?', 'direo-core'),
-                    'type'    => Controls_Manager::SWITCHER,
-                    'default' => 'yes',
-                ]
-            );
-
-            $this->end_controls_section();
-        }
-
-        protected function render()
-        {
-            $settings   = $this->get_settings_for_display();
-            $avatar     = $settings['avatar'];
-            $budget     = $settings['budget'];
-            $columns    = $settings['columns'];
-            $number     = $settings['number'];
-            $order      = $settings['order_by'];
-            $order_list = $settings['order_list'];
-            $pagination = $settings['pagination'];
-
-            echo do_shortcode('[directorist_all_needs display_author="' . esc_attr($avatar) . '" display_category="' . esc_attr($avatar) . '" display_budget="' . esc_attr($budget) . '" columns="' . esc_attr($columns) . '" show_pagination="' . esc_attr($pagination) . '" posts_per_page="' . esc_attr($number) . '" order_by="' . esc_attr($order) . '" sort_by="' . esc_attr($order_list) . '"]');
-        }
     }
 }
 
@@ -4403,6 +3765,28 @@ class Direo_SingleCatMap extends Widget_Base
         );
 
         $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+            ]
+        );
+        
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
+            ]
+        );
+
+        $this->add_control(
             'title',
             [
                 'label'   => __('Listings Found Text', 'direo-core'),
@@ -4497,7 +3881,7 @@ class Direo_SingleCatMap extends Widget_Base
             [
                 'label'   => __('Show Featured Only?', 'direo-core'),
                 'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
+                'default' => 'no',
             ]
         );
 
@@ -4506,7 +3890,7 @@ class Direo_SingleCatMap extends Widget_Base
             [
                 'label'   => __('Show Popular Only?', 'direo-core'),
                 'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
+                'default' => 'no',
             ]
         );
 
@@ -4552,6 +3936,8 @@ class Direo_SingleCatMap extends Widget_Base
     protected function render()
     {
         $settings        = $this->get_settings_for_display();
+        $default_types   = $settings['default_types'];
+        $types           = $settings['types'] ? implode( ',', $settings['types'] ) : '';
         $show_pagination = $settings['show_pagination'];
         $title           = $settings['title'];
         $cat             = $settings['cat'] ? implode(',', $settings['cat']) : '';
@@ -4568,7 +3954,7 @@ class Direo_SingleCatMap extends Widget_Base
 
     <input type="hidden" id="listing-listings_with_map">
 
-    <?php echo do_shortcode('[directorist_category view="listings_with_map" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" action_before_after_loop="no" popular_only="' . esc_attr($popular) . '" header="yes" header_title ="' . esc_attr($title) . '" show_pagination="' . esc_attr($show_pagination) . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" listings_with_map_columns="' . esc_attr($layout) . '"]');
+    <?php echo do_shortcode('[directorist_category view="listings_with_map" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" action_before_after_loop="no" popular_only="' . esc_attr($popular) . '" header="yes" header_title ="' . esc_attr($title) . '" show_pagination="' . esc_attr($show_pagination) . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" listings_with_map_columns="' . esc_attr($layout) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '"]');
     }
 }
 
@@ -4919,7 +4305,27 @@ class Direo_SingleLocMap extends Widget_Base
                 'label' => __('Single Category Map View', 'direo-core'),
             ]
         );
-
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+            ]
+        );
+        
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
+            ]
+        );
         $this->add_control(
             'title',
             [
@@ -5015,7 +4421,7 @@ class Direo_SingleLocMap extends Widget_Base
             [
                 'label'   => __('Show Featured Only?', 'direo-core'),
                 'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
+                'default' => 'no',
             ]
         );
 
@@ -5024,7 +4430,7 @@ class Direo_SingleLocMap extends Widget_Base
             [
                 'label'   => __('Show Popular Only?', 'direo-core'),
                 'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
+                'default' => 'no',
             ]
         );
 
@@ -5082,11 +4488,13 @@ class Direo_SingleLocMap extends Widget_Base
         $order_by        = $settings['order_by'];
         $order_list      = $settings['order_list'];
         $user            = $settings['user'];
-        $web             = 'yes' == $user ? $settings['link']['url'] : ''; ?>
+        $web             = 'yes' == $user ? $settings['link']['url'] : '';
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : ''; ?>
 
         <input type="hidden" id="listing-listings_with_map">
 
-    <?php echo do_shortcode('[directorist_location view="listings_with_map" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" action_before_after_loop="no" popular_only="' . esc_attr($popular) . '" header="yes" header_title ="' . esc_attr($title) . '" show_pagination="' . esc_attr($show_pagination) . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" listings_with_map_columns="' . esc_attr($layout) . '"]');
+    <?php echo do_shortcode('[directorist_location view="listings_with_map" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" action_before_after_loop="no" popular_only="' . esc_attr($popular) . '" header="yes" header_title ="' . esc_attr($title) . '" show_pagination="' . esc_attr($show_pagination) . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" listings_with_map_columns="' . esc_attr($layout) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '"]');
     }
 }
 
@@ -5436,7 +4844,27 @@ class Direo_SingleTagMap extends Widget_Base
                 'label' => __('Single Category Map View', 'direo-core'),
             ]
         );
-
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['general'],
+            ]
+        );
+        
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'general',
+            ]
+        );
         $this->add_control(
             'title',
             [
@@ -5532,7 +4960,7 @@ class Direo_SingleTagMap extends Widget_Base
             [
                 'label'   => __('Show Featured Only?', 'direo-core'),
                 'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
+                'default' => 'no',
             ]
         );
 
@@ -5541,7 +4969,7 @@ class Direo_SingleTagMap extends Widget_Base
             [
                 'label'   => __('Show Popular Only?', 'direo-core'),
                 'type'    => Controls_Manager::SWITCHER,
-                'default' => 'yes',
+                'default' => 'no',
             ]
         );
 
@@ -5587,6 +5015,8 @@ class Direo_SingleTagMap extends Widget_Base
     protected function render()
     {
         $settings        = $this->get_settings_for_display();
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
         $show_pagination = $settings['show_pagination'];
         $title           = $settings['title'];
         $cat             = $settings['cat'] ? implode(',', $settings['cat']) : '';
@@ -5603,7 +5033,7 @@ class Direo_SingleTagMap extends Widget_Base
 
         <input type="hidden" id="listing-listings_with_map">
 
-        <?php echo do_shortcode('[directorist_tag view="listings_with_map" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" action_before_after_loop="no" popular_only="' . esc_attr($popular) . '" header="yes" header_title ="' . esc_attr($title) . '" show_pagination="' . esc_attr($show_pagination) . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" listings_with_map_columns="' . esc_attr($layout) . '"]');
+        <?php echo do_shortcode('[directorist_tag view="listings_with_map" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" listings_per_page="' . esc_attr($number_cat) . '" category="' . esc_attr($cat) . '" tag="' . esc_attr($tag) . '" location="' . esc_attr($location) . '" featured_only="' . esc_attr($featured) . '" action_before_after_loop="no" popular_only="' . esc_attr($popular) . '" header="yes" header_title ="' . esc_attr($title) . '" show_pagination="' . esc_attr($show_pagination) . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" listings_with_map_columns="' . esc_attr($layout) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '"]');
     }
 }
 
@@ -6022,5 +5452,747 @@ class CTA extends Widget_Base
     {
         $settings   = $this->get_settings_for_display();
         az_template('/elementor/cta/view', $settings);
+    }
+}
+
+//Need categories
+class direo_NeedCategories extends Widget_Base
+{
+    public function get_name()
+    {
+        return 'need_categories';
+    }
+
+    public function get_title()
+    {
+        return __('Need Categories', 'direo-core');
+    }
+
+    public function get_icon()
+    {
+        return ' far fa-question-circle';
+    }
+
+    public function get_keywords()
+    {
+        return ['need', 'categories', 'need categories',];
+    }
+
+    public function get_categories()
+    {
+        return ['direo_category'];
+    }
+
+    protected function _register_controls()
+    {
+        $this->start_controls_section(
+            'need_categories',
+            [
+                'label' => __('Need Categories', 'direo-core'),
+            ]
+        );
+
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['need-listings'],
+            ]
+        );
+
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'need-listings',
+            ]
+        );
+
+        $this->add_control(
+            'layout',
+            [
+                'label' => __('Category Layout', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'grid',
+                'options' => [
+                    'grid' => esc_html__('Grid View', 'direo-core'),
+                    'list' => esc_html__('List View', 'direo-core'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'cat_style',
+            [
+                'label' => __('Category Style', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'category-style1',
+                'options' => [
+                    'category-style1' => esc_html__('Style 1', 'direo-core'),
+                    'category-style-two' => esc_html__('Style 2', 'direo-core'),
+                ],
+                'condition' => [
+                    'layout' => 'grid',
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'row',
+            [
+                'label' => __('Categories Per Row', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => '3',
+                'options' => [
+                    '5' => esc_html__('5 Items / Row', 'direo-core'),
+                    '4' => esc_html__('4 Items / Row', 'direo-core'),
+                    '3' => esc_html__('3 Items / Row', 'direo-core'),
+                    '2' => esc_html__('2 Items / Row', 'direo-core'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'number_cat',
+            [
+                'label' => __('Number of categories to Show:', 'direo-core'),
+                'type' => Controls_Manager::NUMBER,
+                'min' => 1,
+                'max' => 1000,
+                'step' => 1,
+                'default' => 6,
+            ]
+        );
+
+        $this->add_control(
+            'order_by',
+            [
+                'label' => __('Order by', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'id',
+                'options' => [
+                    'id' => esc_html__(' Cat ID', 'direo-core'),
+                    'count' => esc_html__('Needs Count', 'direo-core'),
+                    'name' => esc_html__(' Category name (A-Z)', 'direo-core'),
+                    'slug' => esc_html__('Select Category', 'direo-core'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'slug',
+            [
+                'label' => __('Specify Locations', 'direo-core'),
+                'type' => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options' => function_exists('direo_listing_category') ? direo_listing_category() : []
+            ]
+        );
+
+        $this->add_control(
+            'order_list',
+            [
+                'label' => __('Locations Order', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'desc',
+                'options' => [
+                    'asc' => esc_html__(' ASC', 'direo-core'),
+                    'desc' => esc_html__(' DESC', 'direo-core'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'user',
+            [
+                'label' => __('Only For Logged In User?', 'direo-core'),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => 'no',
+            ]
+        );
+
+        $this->add_control(
+            'redirect',
+            [
+                'label' => __('Redirect User?', 'direo-core'),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => 'no',
+            ]
+        );
+
+        $this->add_control(
+            'link',
+            [
+                'label' => __('Redirect Link', 'direo-core'),
+                'type' => Controls_Manager::URL,
+                'dynamic' => [
+                    'active' => true,
+                ],
+                'default' => [
+                    'url' => '',
+                ],
+                'separator' => 'before',
+                'condition' => [
+                    'redirect' => 'yes'
+                ]
+            ]
+        );
+
+        $this->end_controls_section();
+    }
+
+    protected function render()
+    {
+        $settings = $this->get_settings_for_display();
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
+        $number_cat = $settings['number_cat'];
+        $order_by = $settings['order_by'];
+        $order_list = $settings['order_list'];
+        $row = $settings['row'];
+        $slug = $settings['slug'] ? implode($settings['slug'], []) : '';
+        $cat_style = $settings['cat_style'];
+        ?>
+
+        <div id="<?php echo esc_attr($cat_style); ?>">
+            <?php echo do_shortcode( '[directorist_all_categories view="layout" orderby="' . esc_attr( $order_by ) . '" order="' . esc_attr( $order_list ) . '" cat_per_page="' . esc_attr( $number_cat ) . '" columns="' . esc_attr( $row ) . '" slug="' . esc_attr( $slug ) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '"]' );
+            ?>
+        </div>
+    <?php
+    }
+}
+
+//Need locations
+class direo_NeedLocations extends Widget_Base
+{
+    public function get_name()
+    {
+        return 'need_locations';
+    }
+
+    public function get_title()
+    {
+        return __('Need Locations', 'direo-core');
+    }
+
+    public function get_icon()
+    {
+        return ' far fa-question-circle';
+    }
+
+    public function get_categories()
+    {
+        return ['direo_category'];
+    }
+
+    public function get_keywords()
+    {
+        return ['locations', 'need locations',];
+    }
+
+    protected function _register_controls()
+    {
+        $this->start_controls_section(
+            'need_locations',
+            [
+                'label' => __('Need Locations', 'direo-core'),
+            ]
+        );
+
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['need-listings'],
+            ]
+        );
+
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'need-listings',
+            ]
+        );
+
+        $this->add_control(
+            'layout',
+            [
+                'label' => __('Locations Layout', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'grid',
+                'options' => [
+                    'grid' => esc_html__('Grid View', 'direo-core'),
+                    'list' => esc_html__('List View', 'direo-core'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'row',
+            [
+                'label' => __('Location Per Row', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => '3',
+                'options' => [
+                    '5' => esc_html__('5 Items / Row', 'direo-core'),
+                    '4' => esc_html__('4 Items / Row', 'direo-core'),
+                    '3' => esc_html__('3 Items / Row', 'direo-core'),
+                    '2' => esc_html__('2 Items / Row', 'direo-core'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'number_loc',
+            [
+                'label' => __('Number of locations to Show:', 'direo-core'),
+                'type' => Controls_Manager::NUMBER,
+                'min' => 1,
+                'max' => 1000,
+                'step' => 1,
+                'default' => 4,
+            ]
+        );
+
+        $this->add_control(
+            'order_by',
+            [
+                'label' => __('Order by', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'id',
+                'options' => [
+                    'id' => esc_html__(' Cat ID', 'direo-core'),
+                    'count' => esc_html__('Needs Count', 'direo-core'),
+                    'name' => esc_html__(' Category name (A-Z)', 'direo-core'),
+                    'slug' => esc_html__('Select Category', 'direo-core'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'slug',
+            [
+                'label' => __('Specify Locations', 'direo-core'),
+                'type' => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options' => function_exists('direo_listing_locations') ? direo_listing_locations() : []
+            ]
+        );
+
+        $this->add_control(
+            'order_list',
+            [
+                'label' => __('Locations Order', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'desc',
+                'options' => [
+                    'asc' => esc_html__(' ASC', 'direo-core'),
+                    'desc' => esc_html__(' DESC', 'direo-core'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'user',
+            [
+                'label' => __('Only For Logged In User?', 'direo-core'),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => 'no',
+            ]
+        );
+
+        $this->add_control(
+            'redirect',
+            [
+                'label' => __('Redirect User?', 'direo-core'),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => 'no',
+            ]
+        );
+
+        $this->add_control(
+            'link',
+            [
+                'label' => __('Redirect Link', 'direo-core'),
+                'type' => Controls_Manager::URL,
+                'dynamic' => [
+                    'active' => true,
+                ],
+                'default' => [
+                    'url' => '',
+                ],
+                'separator' => 'before',
+                'condition' => [
+                    'redirect' => 'yes'
+                ]
+            ]
+        );
+
+        $this->end_controls_section();
+    }
+
+    protected function render()
+    {
+        $settings = $this->get_settings_for_display();
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
+        $number_loc = $settings['number_loc'];
+        $order_by = $settings['order_by'];
+        $order_list = $settings['order_list'];
+        $row = $settings['row'];
+        $slug = $settings['slug'] ? implode($settings['slug'], []) : '';
+        $layout = $settings['layout'];
+        $user = $settings['user'];
+        $web = 'yes' == $user ? $settings['link']['url'] : '';
+
+        echo do_shortcode('[directorist_all_locations view="' . esc_attr($layout) . '" orderby="' . esc_attr($order_by) . '" order="' . esc_attr($order_list) . '" loc_per_page="' . esc_attr($number_loc) . '" columns="' . esc_attr($row) . '" slug="' . esc_attr($slug) . '" logged_in_user_only="' . esc_attr($user) . '" redirect_page_url="' . esc_attr($web) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '"]');
+    }
+}
+
+//Need single category
+class direo_NeedSingleCat extends Widget_Base
+{
+    public function get_name()
+    {
+        return 'need_single_category';
+    }
+
+    public function get_title()
+    {
+        return __('Need Single Category', 'direo-core');
+    }
+
+    public function get_icon()
+    {
+        return ' far fa-question-circle';
+    }
+
+    public function get_keywords()
+    {
+        return ['single category', 'need category', 'category',];
+    }
+
+    public function get_categories()
+    {
+        return ['direo_category'];
+    }
+
+    protected function _register_controls()
+    {
+        $this->start_controls_section(
+            'need_single_category',
+            [
+                'label' => __('Need Single Category', 'direo-core'),
+            ]
+        );
+
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['need-listings'],
+            ]
+        );
+
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'need-listings',
+            ]
+        );
+
+        $this->add_control(
+            'number',
+            [
+                'label' => __('Number of Needs to Show:', 'direo-core'),
+                'type' => Controls_Manager::NUMBER,
+                'min' => 1,
+                'max' => 100,
+                'default' => 3,
+            ]
+        );
+
+        $this->add_control(
+            'pagination',
+            [
+                'label' => __('Show Pagination?', 'direo-core'),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => 'yes',
+            ]
+        );
+
+        $this->end_controls_section();
+    }
+
+    protected function render()
+    {
+        $settings = $this->get_settings_for_display();
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
+        $number = $settings['number'];
+        $pagination = $settings['pagination'];
+
+        echo do_shortcode('[directorist_category listings_per_page="' . $number . '" show_pagination="' . $pagination . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '" header="no" action_before_after_loop="no" display_preview_image="no"]');
+    }
+}
+
+//Need single location
+class direo_NeedSingleLoc extends Widget_Base
+{
+    public function get_name()
+    {
+        return 'need_single_location';
+    }
+
+    public function get_title()
+    {
+        return __('Need Single Location', 'direo-core');
+    }
+
+    public function get_icon()
+    {
+        return ' far fa-question-circle';
+    }
+
+    public function get_keywords()
+    {
+        return ['single location', 'need location', 'location',];
+    }
+
+    public function get_categories()
+    {
+        return ['direo_category'];
+    }
+
+    protected function _register_controls()
+    {
+        $this->start_controls_section(
+            'need_single_location',
+            [
+                'label' => __('Need Single Location', 'direo-core'),
+            ]
+        );
+
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['need-listings'],
+            ]
+        );
+
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'need-listings',
+            ]
+        );
+
+        $this->add_control(
+            'number',
+            [
+                'label' => __('Number of Needs to Show:', 'direo-core'),
+                'type' => Controls_Manager::NUMBER,
+                'min' => 1,
+                'max' => 100,
+                'default' => 3,
+            ]
+        );
+
+        $this->add_control(
+            'pagination',
+            [
+                'label' => __('Show Pagination?', 'direo-core'),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => 'yes',
+            ]
+        );
+
+        $this->end_controls_section();
+    }
+
+    protected function render()
+    {
+        $settings = $this->get_settings_for_display();
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
+        $number = $settings['number'];
+        $pagination = $settings['pagination'];
+
+        echo do_shortcode('[directorist_location listings_per_page="' . $number . '" show_pagination="' . $pagination . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '" action_before_after_loop="no"]');
+    }
+}
+
+//Needs
+class direo_Needs extends Widget_Base
+{
+    public function get_name()
+    {
+        return 'needs';
+    }
+
+    public function get_title()
+    {
+        return __('All Needs', 'direo-core');
+    }
+
+    public function get_icon()
+    {
+        return ' far fa-question-circle';
+    }
+
+    public function get_keywords()
+    {
+        return ['need',];
+    }
+
+    public function get_categories()
+    {
+        return ['direo_category'];
+    }
+
+    protected function _register_controls()
+    {
+        $this->start_controls_section(
+            'needs',
+            [
+                'label' => __('All Needs', 'direo-core'),
+            ]
+        );
+
+        $this->add_control(
+            'types',
+            [
+                'label'    => __('Specify Listing Types', 'direo-core'),
+                'type'     => Controls_Manager::SELECT2,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => ['need-listings'],
+            ]
+        );
+
+        $this->add_control(
+            'default_types',
+            [
+                'label'    => __('Set Default Listing Type', 'direo-core'),
+                'type'     => Controls_Manager::SELECT,
+                'multiple' => true,
+                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'default'  => 'need-listings',
+            ]
+        );
+
+        $this->add_control(
+            'columns',
+            [
+                'label' => __('Needs Per Row', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => '3',
+                'options' => [
+                    '5' => esc_html__('5 Items / Row', 'direo-core'),
+                    '4' => esc_html__('4 Items / Row', 'direo-core'),
+                    '3' => esc_html__('3 Items / Row', 'direo-core'),
+                    '2' => esc_html__('2 Items / Row', 'direo-core'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'order_by',
+            [
+                'label' => __('Order by', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'date',
+                'options' => [
+                    'ID' => esc_html__(' Post ID', 'direo-core'),
+                    'author' => esc_html__(' Author', 'direo-core'),
+                    'title' => esc_html__(' Title', 'direo-core'),
+                    'name' => esc_html__(' Post name (post slug)', 'direo-core'),
+                    'type' => esc_html__(' Post type (available since Version 4.0)', 'direo-core'),
+                    'date' => esc_html__(' Date', 'direo-core'),
+                    'modified' => esc_html__(' Last modified date', 'direo-core'),
+                    'rand' => esc_html__(' Random order', 'direo-core'),
+                    'comment_count' => esc_html__(' Number of comments', 'direo-core')
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'order_list',
+            [
+                'label' => __('Order post', 'direo-core'),
+                'type' => Controls_Manager::SELECT,
+                'default' => 'DESC',
+                'options' => [
+                    'ASC' => esc_html__(' ASC', 'direo-core'),
+                    'DESC' => esc_html__(' DESC', 'direo-core'),
+                ],
+            ]
+        );
+
+        $this->add_control(
+            'number',
+            [
+                'label' => __('Number of Needs to Show:', 'direo-core'),
+                'type' => Controls_Manager::NUMBER,
+                'min' => 1,
+                'max' => 100,
+                'default' => 3,
+            ]
+        );
+
+        $this->add_control(
+            'pagination',
+            [
+                'label' => __('Show Pagination?', 'direo-core'),
+                'type' => Controls_Manager::SWITCHER,
+                'default' => 'yes',
+            ]
+        );
+
+        $this->end_controls_section();
+    }
+
+    protected function render()
+    {
+        $settings = $this->get_settings_for_display();
+        $default_types = $settings['default_types'];
+        $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
+        $avatar = $settings['avatar'];
+        $columns = $settings['columns'];
+        $number = $settings['number'];
+        $order = $settings['order_by'];
+        $order_list = $settings['order_list'];
+        $pagination = $settings['pagination'];
+        
+        echo do_shortcode('[directorist_all_listing view="grid" listings_per_page="' . esc_attr($number) . '" columns="' . esc_attr($columns) . '" show_pagination="' . esc_attr($pagination) . '" display_preview_image="no" action_before_after_loop="no" display_author="' . esc_attr($avatar) . '" display_category="' . esc_attr($avatar) . '" order_by="' . esc_attr($order) . '" sort_by="' . esc_attr($order_list) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '" header="no"]');
+
     }
 }
