@@ -203,7 +203,7 @@ $all_listings = new WP_Query( $args );
 
 												</ul>
 											</div>
-											<?php 
+											<?php
 										} ?>
 									</div>
 								<?php } ?>
