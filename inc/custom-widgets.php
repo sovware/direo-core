@@ -477,11 +477,9 @@ class direo_social_profile_widget extends WP_Widget {
 		$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
 		?>
 
-		<div class="widget atbd_widget widget_social">
+		<div class="widget widget_text widget_social">
 			<?php if ( ! empty( $title ) ) { ?>
-				<div class="atbd_widget_title">
-					<h4><?php echo esc_attr( $title ); ?></h4>
-				</div>
+				<h4 class="widget-title"><?php echo esc_attr( $title ); ?></h4>
 			<?php } ?>
 			<ul class="list-unstyled social-list">
 				<?php
