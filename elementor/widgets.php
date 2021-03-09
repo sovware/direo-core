@@ -2930,6 +2930,19 @@ class Direo_SearchForm extends Widget_Base
         $popular        = $settings['popular'];
         $searchform 	 = new Directorist_Listing_Search_Form( 'search_form', directorist_default_directory() );
 
+        wp_enqueue_script( 'directorist-search-form-listing' );
+        wp_enqueue_script( 'directorist-range-slider' );
+        wp_enqueue_script( 'directorist-search-listing' );
+
+        $data = Directorist\Script_Helper::get_search_script_data();
+        wp_localize_script( 'directorist-search-form-listing', 'atbdp_search_listing', $data );
+        wp_localize_script( 'directorist-search-listing', 'atbdp_search', [
+        'ajaxnonce' => wp_create_nonce('bdas_ajax_nonce'),
+        'ajax_url' => admin_url('admin-ajax.php'),
+        ]);
+        wp_localize_script( 'directorist-search-listing', 'atbdp_search_listing', $data );
+        wp_localize_script( 'directorist-range-slider', 'atbdp_range_slider', $data );
+        
         if ('style2' === $style) {
             $class = 'col-md-8 offset-md-2';
         } elseif ('style3' === $style) {
