@@ -2890,7 +2890,7 @@ class Direo_SearchForm extends Widget_Base
             $class = 'col-md-10 offset-md-1';
         }
 
-        if (!class_exists('Directorist_Base')) {
+        if ( !class_exists('Directorist_Base') ) {
             return;
         } ?>
         <div id="directorist" class="atbd_wrapper directory_search_area ads-advaced--wrapper search-home-<?php echo esc_attr($style); ?>">
@@ -6096,14 +6096,13 @@ class direo_Needs extends Widget_Base
         $settings = $this->get_settings_for_display();
         $default_types = $settings['default_types'];
         $types = $settings['types'] ? implode( ',', $settings['types'] ) : '';
-        $avatar = $settings['avatar'];
         $columns = $settings['columns'];
         $number = $settings['number'];
         $order = $settings['order_by'];
         $order_list = $settings['order_list'];
         $pagination = $settings['pagination'];
         
-        echo do_shortcode('[directorist_all_listing view="grid" listings_per_page="' . esc_attr($number) . '" columns="' . esc_attr($columns) . '" show_pagination="' . esc_attr($pagination) . '" display_preview_image="no" action_before_after_loop="no" display_author="' . esc_attr($avatar) . '" display_category="' . esc_attr($avatar) . '" order_by="' . esc_attr($order) . '" sort_by="' . esc_attr($order_list) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '" header="no"]');
+        echo do_shortcode('[directorist_all_listing view="grid" listings_per_page="' . esc_attr($number) . '" columns="' . esc_attr($columns) . '" show_pagination="' . esc_attr($pagination) . '" display_preview_image="no" action_before_after_loop="no" order_by="' . esc_attr($order) . '" sort_by="' . esc_attr($order_list) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '" header="no"]');
 
     }
 }
