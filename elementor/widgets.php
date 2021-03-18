@@ -2885,7 +2885,7 @@ class Direo_SearchForm extends Widget_Base
         if ('style2' === $style) {
             $class = 'col-md-8 offset-md-2';
         } elseif ('style3' === $style) {
-            $class = 'col-md-6 offset-md-3';
+            $class = 'col-lg-6 offset-lg-3';
         } else {
             $class = 'col-md-10 offset-md-1';
         }
