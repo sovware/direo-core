@@ -290,56 +290,75 @@ function vb_reg_new_user() {
 		die( 'Ooops, something went wrong, please try again later.' );
 	}
 
+	$redirection_after_reg = get_directorist_option( 'redirection_after_reg' );
+	$auto_login = get_directorist_option( 'auto_login' );
+	$redirect_url = 'previous_page' == $redirection_after_reg ? wp_get_referer() : get_the_permalink( $redirection_after_reg );
+
 	// Post values
-	$username         = $_POST['user'];
-	$email            = $_POST['mail'];
-	$pass             = $_POST['pass'];
+	$username         = isset( $_POST['user'] ) ? $_POST['user'] : '';
+	$email            = isset( $_POST['mail'] ) ? $_POST['mail'] : '';
+	$pass             = isset( $_POST['pass'] ) ? $_POST['pass'] : '';
 	$privacy_policy   = isset( $_POST['privacy_policy'] ) ? esc_attr( $_POST['privacy_policy'] ) : '';
 	$require_password = class_exists( 'Directorist_Base' ) ? get_directorist_option( 'require_password_reg', 1 ) : '';
 	$policy           = get_directorist_option( 'registration_privacy', 1 );
 	$terms            = get_directorist_option( 'regi_terms_condition', 1 );
+	$data = [];
+	$data['state'] = true;
 	if ( $require_password && ! $pass ) {
-		wp_send_json( __( 'Password field is empty!', 'direo-core' ) );
-		die();
+		$data['state'] = false;
+		$data['message'] = __( 'Password field is required', 'direo-core' );
 	}
+
+	if ( ! $email ) {
+		$data['state'] = false;
+		$data['message'] = __( 'Email field is required', 'direo-core' );
+	}
+
+	if ( ! $username ) {
+		$data['state'] = false;
+		$data['message'] = __( 'Username field is required', 'direo-core' );
+	}
+
 	if ( $policy || $terms ) {
 		if ( ! $privacy_policy ) {
-			wp_send_json( __( 'Make sure all the required fields are not empty!', 'direo-core' ) );
-			die();
+			$data['state'] = false;
+			$data['message'] = __( 'Make sure all the required fields are not empty!', 'direo-core' );
 		}
 	}
+
 	/**
 	 * IMPORTANT: You should make server side validation here!
 	 */
-	$generated_pass = wp_generate_password( 12, false );
-	$password       = ! empty( $pass ) ? $pass : $generated_pass;
-	$userdata       = array(
-		'user_login' => $username,
-		'user_email' => $email,
-		'user_pass'  => $password,
-	);
-	$user_id        = wp_insert_user( $userdata );
-	if ( ! is_wp_error( $user_id ) ) {
-		$auto_login            = get_directorist_option( 'auto_login' );
-		$redirection_after_reg = get_directorist_option( 'redirection_after_reg' );
-		$previous_page         = wp_get_referer();
-		if ( ! empty( $auto_login ) ) {
-			wp_set_current_user( $user_id, $email );
-			wp_set_auth_cookie( $user_id );
+	if( !empty( $data['state'] ) ){
+		$generated_pass = wp_generate_password( 12, false );
+		$password       = ! empty( $pass ) ? $pass : $generated_pass;
+		$userdata       = array(
+			'user_login' => $username,
+			'user_email' => $email,
+			'user_pass'  => $password,
+		);
+		$user_id        = wp_insert_user( $userdata );
+		if ( ! is_wp_error( $user_id ) ) {
+			update_user_meta( $user_id, '_atbdp_generated_password', $password );
+			wp_new_user_notification($user_id, null, 'admin');
+			ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+			
+			$data['state'] 			= true;
+			$data['message'] 		= __( 'Registration completed, redirecting..', 'direo-core' );
+			$data['redirect_url'] 	= $redirect_url;
+
+			if( ! empty( $auto_login ) ) {
+				wp_clear_auth_cookie();
+                wp_set_current_user($user_id);
+                wp_set_auth_cookie($user_id, true);
+			}
+		} else {
+			$data['state'] = false;
+			$data['message'] = $user_id->get_error_message();
 		}
-		update_user_meta( $user_id, '_atbdp_generated_password', $password );
-		wp_new_user_notification( $user_id, null, 'both' );
-		if ( ! empty( $redirection_after_reg ) ) {
-			$url = ATBDP_Permalink::get_reg_redirection_page_link( $previous_page );
-			wp_send_json_success( $url );
-			exit;
-		}
-		echo '1';
-	} else {
-		echo $user_id->get_error_message();
 	}
 
-	die();
+	wp_send_json( $data );
 }
 
 add_action( 'wp_ajax_register_user', 'vb_reg_new_user' );
