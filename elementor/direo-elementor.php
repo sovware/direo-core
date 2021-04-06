@@ -77,6 +77,7 @@ final class DireoWidgets {
 			Plugin::instance()->widgets_manager->register_widget_type( new Direo_SingleTag() );
 			Plugin::instance()->widgets_manager->register_widget_type( new Direo_SingleTagMap() );
 			Plugin::instance()->widgets_manager->register_widget_type( new Direo_Transaction() );
+			Plugin::instance()->widgets_manager->register_widget_type( new Direo_Compare() );
 		}
 	}
 

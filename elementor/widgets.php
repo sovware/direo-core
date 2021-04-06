@@ -1,7 +1,4 @@
 <?php
-
-use \Directorist\Directorist_Listing_Search_Form;
-use Directorist\Helper;
 use Elementor\Controls_Manager;
 use Elementor\Core\Schemes;
 use Elementor\Repeater;
@@ -374,7 +371,7 @@ class Direo_Accordion extends Widget_Base
                                     </h3>
                                     <p class="dac_body"><?php echo esc_attr($desc); ?></p>
                                 </div>
-                        <?php
+                                <?php
                             }
                             wp_reset_postdata();
                         } ?>
@@ -5234,7 +5231,6 @@ class Direo_Booking_Confirmation extends Widget_Base
     }
 }
 
-
 //Call to action
 class CTA extends Widget_Base
 {
@@ -6105,5 +6101,74 @@ class direo_Needs extends Widget_Base
         
         echo do_shortcode('[directorist_all_listing view="grid" listings_per_page="' . esc_attr($number) . '" columns="' . esc_attr($columns) . '" show_pagination="' . esc_attr($pagination) . '" display_preview_image="no" action_before_after_loop="no" order_by="' . esc_attr($order) . '" sort_by="' . esc_attr($order_list) . '" directory_type="' . $types . '" default_directory_type="' . $default_types . '" header="no"]');
 
+    }
+}
+
+//Listing Compare
+class Direo_Compare extends Widget_Base
+{
+    public function get_name()
+    {
+        return 'compare';
+    }
+
+    public function get_title()
+    {
+        return __('Listing Compare', 'direo-core');
+    }
+
+    public function get_icon()
+    {
+        return ' fa fa-exchange';
+    }
+
+    public function get_categories()
+    {
+        return ['direo_category'];
+    }
+
+    protected function _register_controls()
+    {
+        $this->start_controls_section(
+            'compare',
+            [
+                'label' => __('Styling', 'direo-core'),
+                'tab'   => Controls_Manager::TAB_STYLE,
+            ]
+        );
+
+        $this->add_responsive_control(
+            'compare_margin',
+            [
+                'label'      => __('margin', 'direo-core'),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors'  => [
+                    '{{WRAPPER}}' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->add_responsive_control(
+            'compare_padding',
+            [
+                'label'      => __('Padding', 'direo-core'),
+                'type'       => Controls_Manager::DIMENSIONS,
+                'size_units' => ['px', 'em', '%'],
+                'selectors'  => [
+                    '{{WRAPPER}}' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                ],
+            ]
+        );
+
+        $this->end_controls_section();
+    }
+
+    protected function render()
+    { ?>
+        <div class="direo-listing-compare">
+            <?php echo do_shortcode('[directorist_listing_compare]'); ?>
+        </div>
+        <?php
     }
 }
