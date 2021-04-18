@@ -63,7 +63,7 @@ function direo_search_form_fields( $more = 'yes' ) {
 	$require_cat  = get_directorist_option( 'require_search_category' ) ? 'required' : '';
 	$require_loc  = get_directorist_option( 'require_search_location' ) ? 'required' : '';
 
-	$search_location_address = get_directorist_option( 'search_location_address', 'address' );
+	$search_location_address     = get_directorist_option( 'search_location_address', 'address' );
 	$search_fields               = get_directorist_option( 'search_tsc_fields', array( 'search_text', 'search_category', 'search_location' ) );
 	$search_placeholder          = get_directorist_option( 'search_placeholder', esc_attr_x( 'What are you looking for?', 'placeholder', 'direo-core' ) );
 	$search_category_placeholder = get_directorist_option( 'search_category_placeholder', esc_html__( 'Select a category', 'direo-core' ) );
@@ -1290,6 +1290,7 @@ function atbdp_popular_category_loop( $counter ) {
 add_filter( 'atbdp_popular_category_loop', 'atbdp_popular_category_loop' );
 
 /* =================After Form Builder ===========================********************************************************************/
+
 // Add review & category in dashboard table.
 function directorist_dashboard_listing_th_2(){
 	echo '<th class="directorist-table-review">' . __( 'Review', 'direo' ) . '</th>';
