@@ -7,7 +7,7 @@ Author: wpWax
 Author URI: https://wpwax.com
 Domain Path: /languages
 Text Domain: direo-core
-Version: 2.5
+Version: 2.6
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -257,7 +257,6 @@ function direo_footer_style_callback( $post ) {
 
 	<?php
 }
-
 
 function direo_footer_style_control( $post_id ) {
 	if ( ! isset( $_POST['direo_footer_meta_box_nonce'] ) ) {
