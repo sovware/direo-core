@@ -625,7 +625,6 @@ class direo_widget_button extends WP_Widget {
 
 	public function form( $instance ) {
 		$social = ! empty( $instance['social'] ) ? $instance['social'] : '';
-		var_dump($social);
 		?>
 
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'social' ) ); ?>"><b><?php esc_html_e( 'How many button you want? & hit save.', 'direo' ); ?></b></label></p>
