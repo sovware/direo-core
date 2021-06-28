@@ -85,7 +85,7 @@ class DireoDemo_Importer {
 	public function execute_after_importing_demo( $collection ) {
 		// Update front page id
 		$demos = array(
-			'demo1' => 2998,
+			'demo1' => 2004,
 		);
 
 		$data = $collection->to_array();

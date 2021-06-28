@@ -2040,6 +2040,7 @@ class Direo_ListingsCarousel extends Widget_Base
                 'label' => __('Listings Carousel', 'direo-core'),
             ]
         );
+        
         $this->add_control(
             'types',
             [

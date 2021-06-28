@@ -494,6 +494,7 @@ function direo_listings_review_price() {
 	$business_hours          = ! empty( $bdbh ) ? atbdp_sanitize_array( $bdbh ) : array(); // arrays of days and times if exist
 	$plan_hours              = true;
 	?>
+
 	<div class="atbd_listing_meta">
 		<?php
 		if ( $display_review || $display_price && ( $price || $price_range ) ) {
