@@ -576,43 +576,6 @@ function direo_right_sidebar_name() {
 add_filter( 'atbdp_right_sidebar_name', 'direo_right_sidebar_name' );
 
 
-// All listing sidebar.
-if ( is_active_sidebar( 'all_listing' ) ) {
-
-	function direo_before_grid_listings_loop() {
-		echo wp_kses_post( '<div class="row"><div class="col-lg-4 order-lg-0 order-1 mt-5 mt-lg-0 atbd_sidebar">' );
-		dynamic_sidebar( 'all_listing' );
-		echo wp_kses_post( '</div><div class="col-lg-8 col-md-12">' );
-	}
-
-	add_action( 'atbdp_before_grid_listings_loop', 'direo_before_grid_listings_loop' );
-
-	// Close listing grid vew sidebar div.
-	function direo_after_grid_listings_loop() {
-		echo wp_kses_post( '</div></div>' );
-	}
-
-	add_action( 'atbdp_after_grid_listings_loop', 'direo_after_grid_listings_loop' );
-
-	// Add Sidebar In Listing List View.
-	function direo_before_list_listings_loop() {
-		echo wp_kses_post( '<div class="listing-list-views"><div class="row"><div class="col-lg-4 order-lg-0 order-1 mt-5 mt-lg-0 atbd_sidebar">' );
-		dynamic_sidebar( 'all_listing' );
-		echo wp_kses_post( '</div><div class="col-lg-8 col-md-12">' );
-	}
-
-	add_action( 'atbdp_before_list_listings_loop', 'direo_before_list_listings_loop' );
-}
-
-
-// Close listing grid vew sidebar div.
-function direo_after_list_listings_loop() {
-	$title = get_directorist_option( 'direo_details_text' );
-	echo wp_kses_post( '</div></div></div>' );
-}
-
-add_action( 'atbdp_after_list_listings_loop', 'direo_after_list_listings_loop' );
-
 /*Add Single Listing Description Content. */
 function direo_before_listing_section() {
 	$title = get_directorist_option( 'direo_details_text' );
