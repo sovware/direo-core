@@ -132,7 +132,7 @@ class direo_popular_post_widget extends WP_Widget {
 								</div>
 								<?php
 							}
-							wp_reset_postdata();
+							
 							?>
 						</div>
 					</div>
@@ -142,7 +142,7 @@ class direo_popular_post_widget extends WP_Widget {
 					</div>
 					<?php
 				}
-				wp_reset_query();
+				
 				?>
 			</div>
 		</div>
@@ -243,7 +243,7 @@ class direo_latest_post_widget extends WP_Widget {
 								</div><!-- ends: .post-single -->
 								<?php
 							}
-							wp_reset_postdata();
+							
 							?>
 						</div>
 					</div>
@@ -254,7 +254,7 @@ class direo_latest_post_widget extends WP_Widget {
 					</div>
 					<?php
 				}
-				wp_reset_query();
+				
 				?>
 			</div>
 		</div>
@@ -340,7 +340,7 @@ class direo_connect_follow_widget extends WP_Widget {
 									<?php
 								endif;
 							}
-							wp_reset_postdata();
+							
 							?>
 						</ul>
 					</div>
@@ -401,7 +401,7 @@ class direo_connect_follow_widget extends WP_Widget {
 
 				<?php
 			}
-			wp_reset_postdata();
+			
 		}
 		?>
 
@@ -502,7 +502,7 @@ class direo_social_profile_widget extends WP_Widget {
 						<?php
 					endif;
 				}
-				wp_reset_postdata();
+				
 				?>
 			</ul>
 		</div>
@@ -568,7 +568,7 @@ class direo_social_profile_widget extends WP_Widget {
 				</p>
 				<?php
 			}
-			wp_reset_postdata();
+			
 		}
 	}
 
@@ -616,7 +616,7 @@ class direo_widget_button extends WP_Widget {
 					<?php
 				endif;
 			}
-			wp_reset_postdata();
+			
 			?>
 		</ul>
 
@@ -658,7 +658,7 @@ class direo_widget_button extends WP_Widget {
 				</p>
 				<?php
 			}
-			wp_reset_postdata();
+			
 		}
 	}
 
