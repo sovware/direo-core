@@ -54,12 +54,12 @@ class DireoDemo_Importer {
 		$demos_array = array(
 			'demo1' => array(
 				'title'        => __( 'Home Static', 'direo-core' ),
-				'screenshot'   => 'https://demo.directorist.com/theme/demo-content/direo/direo.jpg',
-				'preview_link' => 'https://demo.directorist.com/theme/direo/',
+				'screenshot'   => 'http://demo.directorist.com/theme/demo-content/direo/direo.jpg',
+				'preview_link' => 'http://demo.directorist.com/theme/direo/',
 			),
 		);
 
-		$remote_server_url = 'https://demo.directorist.com/theme/demo-content/direo';
+		$remote_server_url = 'http://demo.directorist.com/theme/demo-content/direo';
 
 		foreach ( $demos_array as $id => $data ) {
 			$demo = new FW_Ext_Backups_Demo(
@@ -117,9 +117,9 @@ function direo_import_files() {
 	 return array(
 		 array(
 			 'import_file_name'           => 'Demo',
-			 'import_file_url'            => 'https://demo.directorist.com/theme/demo-content/direo/content.xml',
-			 'import_widget_file_url'     => 'https://demo.directorist.com/theme/demo-content/direo/widgets.wie',
-			 'import_customizer_file_url' => 'https://demo.directorist.com/theme/demo-content/direo/customizer.dat',
+			 'import_file_url'            => 'http://demo.directorist.com/theme/demo-content/direo/content.xml',
+			 'import_widget_file_url'     => 'http://demo.directorist.com/theme/demo-content/direo/widgets.wie',
+			 'import_customizer_file_url' => 'http://demo.directorist.com/theme/demo-content/direo/customizer.dat',
 			 'import_notice'              => __( 'After you import this demo, You can deactivate the "One Click Demo Import" plugin.', 'direo-core' ),
 		 ),
 	 );
