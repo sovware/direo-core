@@ -1123,47 +1123,6 @@ function direo_set_user_dashboard_page( $page_template ) {
 
 add_action( 'page_template', 'direo_set_user_dashboard_page' );
 
-// Page creation.
-function direo_page_creation() {
-	if ( isset( $_GET['direo_create_page'] ) ) {
-		atbdp_create_required_pages();
-		update_user_meta( get_current_user_id(), '_atbdp_shortcode_regenerate_notice', 'false' );
-		if ( class_exists( 'ATBDP_Pricing_Plans' ) ) {
-			atpp_create_required_pages();
-		}
-		if ( class_exists( 'DWPP_Pricing_Plans' ) ) {
-			dwpp_create_required_pages();
-		}
-		if ( class_exists( 'BD_Booking' ) ) {
-			bdb_create_required_pages();
-		}
-		set_transient( 'direo-page-creation-notice', true, 2 );
-	}
-	if ( isset( $_GET['direo_demo_import'] ) ) {
-		update_option( 'direo_demo_import', 1 );
-	}
-}
-
-add_action( 'init', 'direo_page_creation', 100 );
-
-// demo notification.
-function direo_page_creation_notice() {
-	if ( ( get_option( 'atbdp_pages_version' ) < 1 ) && ( get_option( 'direo_demo_import' ) < 1 ) ) {
-		$link  = add_query_arg( 'direo_demo_import', 'true', admin_url() . '/tools.php?page=fw-backups-demo-content' );
-		$link2 = add_query_arg( 'direo_create_page', 'true', $_SERVER['REQUEST_URI'] );
-		echo '<div class="notice notice-warning is-dismissible direo_importer_notice"><p><a href="' . esc_url( $link ) . '">' . __( 'Import Demo', 'direo-core' ) . '</a> or <a href="' . esc_url( $link2 ) . '">' . __( 'Generate', 'direo-core' ) . '</a>' . __( ' Required Pages' ) . '</p></div>';
-	}
-	if ( get_transient( 'direo-page-creation-notice' ) ) {
-		?>
-			<div class="updated notice is-dismissible"><p><?php _e( 'Page created successfully!', 'direo-core' ); ?></p></div>
-		<?php
-		delete_transient( 'direo-page-creation-notice' );
-	}
-}
-
-add_action( 'admin_notices', 'direo_page_creation_notice' );
-
-
 /*Set default listing detail template*/
 function direo_single_template( $template ) {
 	$template = 'current_theme_template';
