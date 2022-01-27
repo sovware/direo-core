@@ -333,7 +333,7 @@ class direo_connect_follow_widget extends WP_Widget {
 								if ( $link_text ) :
 									?>
 									<li>
-										<a href="<?php echo esc_url( $link_url ); ?>" class="<?php echo esc_attr( $link_text ); ?>">
+										<a href="<?php echo esc_url( $link_url ); ?>" class="<?php echo esc_attr( $link_text ); ?>" target="_blank">
 											<span class="fab fa-<?php echo esc_attr( $link_text ); ?>"></span>
 										</a>
 									</li>
@@ -492,17 +492,17 @@ class direo_social_profile_widget extends WP_Widget {
 
 					if ( $link_text ) :
 						?>
-
 						<li>
-							<a href="<?php echo esc_url( $link_url ); ?>">
-								<span class="instagram"><i class="fab fa-<?php echo esc_attr( $link_text ); ?>" style="color: <?php echo esc_attr( $s_color ); ?>"></i></span>
+							<a href="<?php echo esc_url( $link_url ); ?>" target="_blank">
+								<span class="instagram">
+									<i class="fab fa-<?php echo esc_attr( $link_text ); ?>" style="color: <?php echo esc_attr( $s_color ); ?>"></i>
+								</span>
 								<?php echo esc_html( $s_title ); ?>
 							</a>
 						</li>
 						<?php
 					endif;
 				}
-				
 				?>
 			</ul>
 		</div>
