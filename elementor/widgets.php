@@ -37,7 +37,7 @@ class Direo_Heading extends Widget_Base
         return ['heading', 'pro', 'Heading Pro'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'heading_pro',
@@ -215,7 +215,7 @@ class Direo_Accordion extends Widget_Base
         return ['accordion', 'tabs', 'faq'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'section_title',
@@ -411,7 +411,7 @@ class Direo_AddListing_Form extends Widget_Base
         return ['Listing form', 'form', 'add listing'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'add_listing_form',
@@ -482,7 +482,7 @@ class Direo_Profile extends Widget_Base
         return ['profile', 'author', 'author profile'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'author_profile',
@@ -556,7 +556,7 @@ class Direo_Blogs extends Widget_Base
         return ['blog', 'post', 'blog post'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'blog_posts',
@@ -721,7 +721,7 @@ class Direo_Categories extends Widget_Base
         return ['categories', 'all categories', 'listing categories'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'categories',
@@ -891,7 +891,7 @@ class Direo_Locations extends Widget_Base
         return ['locations', 'all location', 'listing locations'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'locations',
@@ -1060,7 +1060,7 @@ class Direo_Checkout extends Widget_Base
         return ['checkout', 'payment', 'checkout payment'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'checkout',
@@ -1134,7 +1134,7 @@ class Direo_ContactForm extends Widget_Base
         return ['contact', 'form', 'contact form'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'contact_form',
@@ -1216,7 +1216,7 @@ class Direo_ContactItems extends Widget_Base
         return ['address', 'list', 'item', 'contact items'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'contact_items',
@@ -1320,7 +1320,7 @@ class Direo_Counter extends Widget_Base
         return ['count', 'counter', 'count down'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'section_counter',
@@ -1405,7 +1405,7 @@ class Direo_Dashboard extends Widget_Base
         return ['dashboard', 'author dashboard'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'dashboard',
@@ -1476,7 +1476,7 @@ class Direo_FeatureBox extends Widget_Base
         return ['feature', 'feature list', 'feature box'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'feature_box',
@@ -1673,7 +1673,7 @@ class Direo_Listings extends Widget_Base
         return ['listings', 'all listings'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'listings',
@@ -2032,7 +2032,7 @@ class Direo_ListingsCarousel extends Widget_Base
         return ['carousel', 'listing carousel'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'listings_carousel',
@@ -2127,7 +2127,7 @@ class Direo_ListingsMap extends Widget_Base
         return ['map', 'listings map', 'listing map'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'listings_map',
@@ -2337,7 +2337,7 @@ class Direo_Registration extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'Registration',
@@ -2406,7 +2406,7 @@ class Direo_Login extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'login',
@@ -2481,7 +2481,7 @@ class Direo_Transaction extends Widget_Base
     }
 
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'transaction',
@@ -2555,7 +2555,7 @@ class Direo_Logos extends Widget_Base
         return ['logo', 'logos', 'carousel',];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'logos',
@@ -2624,7 +2624,7 @@ class Direo_Payment extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'payment',
@@ -2698,7 +2698,7 @@ class Direo_PricingPlan extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'pricing_plan',
@@ -2770,7 +2770,7 @@ class Direo_SearchForm extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'hero_area',
@@ -2931,7 +2931,7 @@ class Direo_SearchResult extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'search_result',
@@ -3150,7 +3150,7 @@ class Direo_SearchResultMap extends Widget_Base
         return ['search result map', 'search', 'result map'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'listings_map',
@@ -3355,7 +3355,7 @@ class Direo_SingleCat extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'single_cat',
@@ -3665,7 +3665,7 @@ class Direo_SingleCatMap extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'single_cat',
@@ -3896,7 +3896,7 @@ class Direo_SingleLoc extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'single_loc',
@@ -4207,7 +4207,7 @@ class Direo_SingleLocMap extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'single_cat',
@@ -4436,7 +4436,7 @@ class Direo_SingleTag extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'single_cat',
@@ -4746,7 +4746,7 @@ class Direo_SingleTagMap extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'single_cat',
@@ -4975,7 +4975,7 @@ class Direo_Testimonial extends Widget_Base
         return ['testimonial', 'client', 'testi'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'Testimonials',
@@ -5082,7 +5082,7 @@ class Direo_Subscribe extends Widget_Base
         return ['Subscribe', 'like', 'mailchimp'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'subscribe',
@@ -5186,7 +5186,7 @@ class Direo_Booking_Confirmation extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'Booking',
@@ -5260,7 +5260,7 @@ class CTA extends Widget_Base
         return ['call_to_action', 'cta', 'call to action'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'categories',
@@ -5392,7 +5392,7 @@ class direo_NeedCategories extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'need_categories',
@@ -5605,7 +5605,7 @@ class direo_NeedLocations extends Widget_Base
         return ['locations', 'need locations',];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'need_locations',
@@ -5799,7 +5799,7 @@ class direo_NeedSingleCat extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'need_single_category',
@@ -5893,7 +5893,7 @@ class direo_NeedSingleLoc extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'need_single_location',
@@ -5987,7 +5987,7 @@ class direo_Needs extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'needs',
@@ -6128,7 +6128,7 @@ class Direo_Compare extends Widget_Base
         return ['direo_category'];
     }
 
-    protected function _register_controls()
+    protected function register_controls()
     {
         $this->start_controls_section(
             'compare',
