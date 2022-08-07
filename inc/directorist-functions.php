@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  AazzTech
+ * @author  WpWax
  * @since   1.0
  * @version 1.0
  */
@@ -1057,7 +1057,7 @@ add_filter( 'atbdp_listings_list_cat_view_count_author', 'direo_listing_grid_lis
 // listing with map view copyright section.
 function direo_footer_listing_with_map() {
 	$footer_style = get_post_meta( get_the_ID(), 'footer_style', true );
-	$default      = '©' . date( 'Y' ) . ' Direo. Made with <span class="la la-heart-o"></span> by <a href="#">AazzTech</a>';
+	$default      = '©' . date( 'Y' ) . ' Direo. Made with <span class="la la-heart-o"></span> by <a href="#">WpWax</a>';
 	$copy_right   = get_theme_mod( 'copy_right', $default );
 	echo sprintf( '<div class="listing_map_footer bg-%s">%s</div>', esc_attr( $footer_style ), apply_filters( 'get_the_content', $copy_right ) );
 }

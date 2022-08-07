@@ -2852,18 +2852,16 @@ class Direo_SearchForm extends Widget_Base
         $this->add_control(
             'popular_cat_color',
             [
-                'label'  => __('Category Text Color', 'direo-core'),
+                'label'  => __('Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
                 'scheme' => [
                     'type'  => Schemes\Color::get_type(),
                     'value' => Schemes\Color::COLOR_3,
                 ],
                 'selectors' => [
-                    '{{WRAPPER}} #directorist.atbd_wrapper .directory_home_category_area ul.categories li a p,
-                    {{WRAPPER}} .directorist-search-contents .directorist-listing-category-top ul li a p,
-                    {{WRAPPER}} .directorist-search-contents .directorist-listing-category-top ul li a span,
-                    {{WRAPPER}} .directorist-search-contents .directorist-search-top__title,
-                    {{WRAPPER}} .directorist-search-contents .directorist-search-top__subtitle' => 'color: {{VALUE}};',
+                    '{{WRAPPER}} .directorist-search-contents .directorist-listing-category-top ul li a p,
+                    {{WRAPPER}} .directorist-listing-type-selection__link,
+                    {{WRAPPER}} .directorist-listing-type-selection__link span.fa' => 'color: {{VALUE}};',
                 ],
             ]
         );
