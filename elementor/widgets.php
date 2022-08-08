@@ -5136,7 +5136,7 @@ class Direo_Subscribe extends Widget_Base
         $btn      = $settings['btn'];
         $action   = $settings['action']['url']; ?>
 
-        <section class="subscribe-wrapper">
+        <section class="subscribe-wrapper" style="background-image: url('<?php echo get_template_directory_uri() . '/img/svg/sb-shape.svg';?>')">
             <div class="container">
                 <div class="row">
                     <div class="col-md-8 offset-md-2">
