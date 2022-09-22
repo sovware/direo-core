@@ -30,10 +30,10 @@ function direo_listings_map_view_as() {
 	?>
 	<div class="view-mode-2 view-as">
 		<a data-view="grid" class="action-btn-2 ab-grid map-view-grid <?php echo 'grid' == $view_as ? esc_html( 'active' ) : ''; ?>">
-			<span class="la la-th-large"></span>
+			<?php directorist_icon( "la la-th-large" ); ?>
 		</a>
 		<a data-view="list" class="action-btn-2 ab-list map-view-list <?php echo 'list' == $view_as ? esc_html( 'active' ) : ''; ?>">
-			<span class="la la-list"></span>
+			<?php directorist_icon( "la la-list" ); ?>
 		</a>
 	</div>
 	<?php

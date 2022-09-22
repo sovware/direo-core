@@ -6,8 +6,8 @@ jQuery(document).ready(function(){
       items: 6,
       nav: true,
       navText: [
-        '<span class="la la-angle-left"></span>',
-        '<span class="la la-angle-right"></span>',
+        '<i class="directorist-icon-mask category-icon  color-3" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-left-solid.svg)"></i>',
+        '<i class="directorist-icon-mask category-icon  color-3" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-right-solid.svg)"></i>',
       ],
       dots: true,
       margin: 30,
@@ -35,8 +35,8 @@ jQuery(document).ready(function(){
       items: 4,
       nav: true,
       navText: [
-        '<span class="la la-angle-left"></span>',
-        '<span class="la la-angle-right"></span>',
+        '<i class="directorist-icon-mask category-icon  color-3" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-left-solid.svg)"></i>',
+        '<i class="directorist-icon-mask category-icon  color-3" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-right-solid.svg)"></i>',
       ],
       dots: false,
       margin: 30,
@@ -64,8 +64,8 @@ jQuery(document).ready(function(){
       items: 3,
       nav: true,
       navText: [
-        '<span class="la la-angle-left"></span>',
-        '<span class="la la-angle-right"></span>',
+        '<i class="directorist-icon-mask category-icon  color-3" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-left-solid.svg)"></i>',
+        '<i class="directorist-icon-mask category-icon  color-3" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-right-solid.svg)"></i>',
       ],
       dots: false,
       margin: 30,
@@ -102,8 +102,8 @@ jQuery(document).ready(function(){
         autoplay: checkData(JSON.parse(elm.dataset.carouselAutoplay), true),
         autoplayTimeout: checkData(parseInt(elm.dataset.carouselDelay), 3000), /* delay */
         navText: [
-          '<span class="la la-angle-left"></span>',
-          '<span class="la la-angle-right"></span>',
+          '<i class="directorist-icon-mask category-icon  color-3" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-left-solid.svg)"></i>',
+          '<i class="directorist-icon-mask category-icon  color-3" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-right-solid.svg)"></i>',
         ],
         dots: false,
         margin: 30,

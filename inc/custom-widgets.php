@@ -443,7 +443,9 @@ class direo_search_widget extends WP_Widget {
 						<input type="search" value="<?php echo esc_attr( get_search_query() ); ?>" name="s"
 							class="fc--rounded"
 							placeholder="<?php echo esc_attr_x( 'Search', 'placeholder', 'direo-core' ); ?>">
-						<button value="search" type="submit"><i class="la la-search"></i></button>
+						<button value="search" type="submit">
+							<?php directorist_icon( 'la la-search' ); ?>
+						</button>
 					</div>
 				</form>
 			</div>
