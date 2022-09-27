@@ -334,7 +334,7 @@ class direo_connect_follow_widget extends WP_Widget {
 									?>
 									<li>
 										<a href="<?php echo esc_url( $link_url ); ?>" class="<?php echo esc_attr( $link_text ); ?>" target="_blank">
-											<span class="fab fa-<?php echo esc_attr( $link_text ); ?>"></span>
+											<?php directorist_icon( 'fa fa-' . $link_text ); ?>
 										</a>
 									</li>
 									<?php
@@ -487,17 +487,17 @@ class direo_social_profile_widget extends WP_Widget {
 				<?php
 				for ( $i = 1; $i <= $instance['social']; $i++ ) {
 
-					$s_title   = ! empty( $instance[ "s_title$i" ] ) ? $instance[ "s_title$i" ] : '';
-					$link_url  = ! empty( $instance[ "link_url$i" ] ) ? $instance[ "link_url$i" ] : '';
-					$link_text = ! empty( $instance[ "link_text$i" ] ) ? $instance[ "link_text$i" ] : '';
-					$s_color   = ! empty( $instance[ "s_color$i" ] ) ? $instance[ "s_color$i" ] : '';
-
+					$s_title   = isset( $instance[ "s_title$i" ] ) ? $instance[ "s_title$i" ] : '';
+					$link_url  = isset( $instance[ "link_url$i" ] ) ? $instance[ "link_url$i" ] : '';
+					$link_text = isset( $instance[ "link_text$i" ] ) ? $instance[ "link_text$i" ] : '';
+					$s_color   = isset( $instance[ "s_color$i" ] ) ? $instance[ "s_color$i" ] : '';
+					//e_var_dump( 'fa fa-' . $link_text );
 					if ( $link_text ) :
 						?>
 						<li>
 							<a href="<?php echo esc_url( $link_url ); ?>" target="_blank">
-								<span class="instagram">
-									<i class="fab fa-<?php echo esc_attr( $link_text ); ?>" style="color: <?php echo esc_attr( $s_color ); ?>"></i>
+								<span class="instagram" style="color: <?php echo esc_attr( $s_color ); ?>">
+									<?php directorist_icon( 'fa fa-' . $link_text ); ?>
 								</span>
 								<?php echo esc_html( $s_title ); ?>
 							</a>
@@ -612,7 +612,7 @@ class direo_widget_button extends WP_Widget {
 					?>
 					<li>
 						<a href="<?php echo esc_url( $btn_url ); ?>" class="btn btn-sm btn-icon <?php echo esc_html( $btn_type ); ?>">
-							<span class="fab fa-<?php echo esc_html( $icon ); ?>"></span>
+							<?php directorist_icon( 'fa fa-' . $icon ); ?>
 						<?php echo esc_html( $btn_text ); ?></a>
 					</li>
 					<?php
