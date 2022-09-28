@@ -14,14 +14,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-function deactive_direo_core() {
-    $my_theme = wp_get_theme();
-    if ( ( 'Direo' !== $my_theme->name ) || ( 'Direo' !== $my_theme->parent_theme  ) ) {
-        deactivate_plugins(plugin_basename(__FILE__));
-    }
-}
+// function deactive_direo_core() {
+//     $my_theme = wp_get_theme();
+//     if ( ( 'Direo' !== $my_theme->name ) || ( 'Direo' !== $my_theme->parent_theme  ) ) {
+//         deactivate_plugins(plugin_basename(__FILE__));
+//     }
+// }
 
-add_action( 'admin_init', 'deactive_direo_core');
+// add_action( 'admin_init', 'deactive_direo_core');
 
 function direo_core_textdomain() {
 	$plugin_rel_path = dirname( plugin_basename( __FILE__ ) ) . '/languages';
