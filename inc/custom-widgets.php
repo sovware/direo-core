@@ -477,6 +477,7 @@ class direo_social_profile_widget extends WP_Widget {
 
 	public function widget( $args, $instance ) {
 		$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
+		$rand_number = rand(0, 999);
 		?>
 
 		<div class="widget widget_text widget_social">
@@ -492,12 +493,12 @@ class direo_social_profile_widget extends WP_Widget {
 					$link_url  = isset( $instance[ "link_url$i" ] ) ? $instance[ "link_url$i" ] : '';
 					$link_text = isset( $instance[ "link_text$i" ] ) ? strtolower( $instance[ "link_text$i" ] ) : '';
 					$s_color   = isset( $instance[ "s_color$i" ] ) ? $instance[ "s_color$i" ] : '';
-					$styles    .= "icon_index{$i}::after{background-color:{$s_color}} !important;";
+					$styles    .= "i.directorist-icon-mask.icon_index{$i}_{$rand_number}::after{background-color:{$s_color} !important;}";
 					if ( $link_text ): ?>
 						<li>
 							<a href="<?php echo esc_url( $link_url ); ?>" target="_blank">
 								<span class="instagram" style="color: <?php echo esc_attr( $s_color ); ?>">
-									<?php directorist_icon( 'fa fa-' . $link_text, true, "icon_index{$i}" ); ?>
+									<?php directorist_icon( 'fa fa-' . $link_text, true, "icon_index{$i}_{$rand_number}" ); ?>
 								</span>
 								<?php echo esc_html( $s_title ); ?>
 							</a>
