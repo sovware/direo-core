@@ -41,7 +41,7 @@ $locations = get_categories( $args );
 			$image_id   = get_term_meta( $loc->term_id, 'image', true );
 			$image      = $image_id ? wp_get_attachment_image_src( $image_id, 'findbiz-popular-cat' ) : '';
 			$image      = ! empty( $image ) ? esc_url( $image[0] ) : '';
-			$count      = atbdp_all_listings_meta_count( '', $loc );
+			$count      = direo_atbdp_all_listings_meta_count( '', $loc );
 			?>
 			<div class="lm-single">
 				<figure>

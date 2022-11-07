@@ -291,7 +291,7 @@ function direo_footer_style_control( $post_id ) {
 add_action( 'save_post', 'direo_footer_style_control' );
 
 /* New User registration */
-function vb_reg_new_user() {
+function direo_vb_reg_new_user() {
 	// Verify nonce
 	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( $_POST['nonce'], 'vb_new_user' ) ) {
 		die( 'Ooops, something went wrong, please try again later.' );
@@ -348,7 +348,7 @@ function vb_reg_new_user() {
 		if ( ! is_wp_error( $user_id ) ) {
 			update_user_meta( $user_id, '_atbdp_generated_password', $password );
 			wp_new_user_notification($user_id, null, 'admin');
-			ATBDP()->email->custom_wp_new_user_notification_email($user_id);
+			ATBDP()->email->direo_custom_wp_new_user_notification_email($user_id);
 			
 			$data['state'] 			= true;
 			$data['message'] 		= __( 'Registration completed, redirecting..', 'direo-core' );
@@ -368,8 +368,8 @@ function vb_reg_new_user() {
 	wp_send_json( $data );
 }
 
-add_action( 'wp_ajax_register_user', 'vb_reg_new_user' );
-add_action( 'wp_ajax_nopriv_register_user', 'vb_reg_new_user' );
+add_action( 'wp_ajax_register_user', 'direo_vb_reg_new_user' );
+add_action( 'wp_ajax_nopriv_register_user', 'direo_vb_reg_new_user' );
 
 /* Login & Register Configuration */
 if ( ! function_exists( 'direo_post_navigation' ) ) {
@@ -572,14 +572,14 @@ function direo_post_tags() {
 	}
 }
 
-if ( ! function_exists( 'mail_desc' ) ) {
-	function mail_desc() {
+if ( ! function_exists( 'direo_mail_desc' ) ) {
+	function direo_mail_desc() {
 		$desc = __( '<strong>Login <a href="https://mailchimp.com" target="_blank">Mailchimp</a> > Profile > Audience > Create  Audience / select existing audience</strong><br> Then go to <strong>Signup forms > Embedded forms </strong> and scroll down then you will found <strong>Copy/paste onto your site</strong> textarea including some text. Copy the form action URL and paste it here. <b style="color: green;">[For more details follow theme docs: <a href="https://demo.directorist.com/documentation/theme/direo/subscribe/" target="_blank">Page Builder</a>]</b>', 'direo' );
 		return $desc;
 	}
 }
 
-function az_template( $template, $settings ) {
+function direo_az_template( $template, $settings ) {
 	$az_dir = plugin_dir_path( __FILE__ );
 	$file   = $az_dir . $template . '.php';
 	ob_start();
@@ -588,7 +588,7 @@ function az_template( $template, $settings ) {
 }
 
 // blog post estimated reading time
-function reading_time( $content = '' ) {
+function direo_reading_time( $content = '' ) {
 	$clean_content = strip_shortcodes( $content );
 	$clean_content = strip_tags( $clean_content );
 	$word_count    = str_word_count( $clean_content );

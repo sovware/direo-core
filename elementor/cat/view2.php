@@ -32,7 +32,7 @@ $categories = get_categories( $args );
 		foreach ( $categories as $cat ) {
 			$link      = is_directorist() ? \ATBDP_Permalink::atbdp_get_category_page( (object) $cat ) : '';
 			$icon      = get_cat_icon( $cat->term_id );
-			$cat_count = atbdp_all_listings_meta_count( '', $cat );
+			$cat_count = direo_atbdp_all_listings_meta_count( '', $cat );
 			$bg_color  = ' color-' . $i;
 			?>
 

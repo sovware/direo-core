@@ -657,7 +657,7 @@ class Direo_Blogs extends Widget_Base
         $order_list = $settings['order_list'];
 
         $id = get_the_id();
-        $content = reading_time(get_post_field('post_content', $id));
+        $content = direo_reading_time(get_post_field('post_content', $id));
         $time_text = (1 == $content) ? $content . ' min read' : $content . ' mins read';
 
         $args = array(
@@ -736,7 +736,7 @@ class Direo_Categories extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
                 'condition' => [
                     'cat_type!' => ['style3'],
@@ -750,7 +750,7 @@ class Direo_Categories extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
                 'condition' => [
                     'cat_type!' => ['style3'],
@@ -856,9 +856,9 @@ class Direo_Categories extends Widget_Base
         $cat_type   = $settings['cat_type'];
 
         if ('style3' === $cat_type) {
-            az_template('/elementor/cat/view2', $settings);
+            direo_az_template('/elementor/cat/view2', $settings);
         } else {
-            az_template('/elementor/cat/view1', $settings);
+            direo_az_template('/elementor/cat/view1', $settings);
         }
     }
 }
@@ -906,7 +906,7 @@ class Direo_Locations extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
                 'condition' => [
                     'layout' => ['grid','list'],
@@ -920,7 +920,7 @@ class Direo_Locations extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
                 'condition' => [
                     'layout' => ['grid','list'],
@@ -1023,11 +1023,11 @@ class Direo_Locations extends Widget_Base
         $layout     = $settings['layout'];
 
         if ('masonry' === $layout) {
-            az_template('/elementor/location/view2', $settings);
+            direo_az_template('/elementor/location/view2', $settings);
         } elseif ('carousel' === $layout) {
-            az_template('/elementor/location/view3', $settings);
+            direo_az_template('/elementor/location/view3', $settings);
         } else {
-            az_template('/elementor/location/view1', $settings);
+            direo_az_template('/elementor/location/view1', $settings);
         }
     }
 }
@@ -1288,7 +1288,7 @@ class Direo_ContactItems extends Widget_Base
     protected function render()
     {
         $settings = $this->get_settings_for_display();
-        az_template('/elementor/contact/view', $settings);
+        direo_az_template('/elementor/contact/view', $settings);
     }
 }
 
@@ -1688,7 +1688,7 @@ class Direo_Listings extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
             ]
         );
@@ -1699,7 +1699,7 @@ class Direo_Listings extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
             ]
         );
@@ -2000,7 +2000,7 @@ class Direo_Listings extends Widget_Base
     protected function render()
     {
         $settings   = $this->get_settings_for_display();
-        az_template('/elementor/listings/view', $settings);
+        direo_az_template('/elementor/listings/view', $settings);
     }
 }
 
@@ -2047,7 +2047,7 @@ class Direo_ListingsCarousel extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
             ]
         );
@@ -2058,7 +2058,7 @@ class Direo_ListingsCarousel extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
             ]
         );
@@ -2095,7 +2095,7 @@ class Direo_ListingsCarousel extends Widget_Base
     protected function render()
     {
         $settings = $this->get_settings_for_display();
-        az_template('/elementor/listing/view', $settings);
+        direo_az_template('/elementor/listing/view', $settings);
     }
 }
 
@@ -2799,7 +2799,7 @@ class Direo_SearchForm extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
             ]
         );
 
@@ -2809,7 +2809,7 @@ class Direo_SearchForm extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
             ]
         );
 
@@ -2944,7 +2944,7 @@ class Direo_SearchResult extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
             ]
         );
@@ -2955,7 +2955,7 @@ class Direo_SearchResult extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
             ]
         );
@@ -3368,7 +3368,7 @@ class Direo_SingleCat extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
             ]
         );
@@ -3379,7 +3379,7 @@ class Direo_SingleCat extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
             ]
         );
@@ -3678,7 +3678,7 @@ class Direo_SingleCatMap extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
             ]
         );
@@ -3689,7 +3689,7 @@ class Direo_SingleCatMap extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
             ]
         );
@@ -3909,7 +3909,7 @@ class Direo_SingleLoc extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
             ]
         );
@@ -3920,7 +3920,7 @@ class Direo_SingleLoc extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
             ]
         );
@@ -4219,7 +4219,7 @@ class Direo_SingleLocMap extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
             ]
         );
@@ -4230,7 +4230,7 @@ class Direo_SingleLocMap extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
             ]
         );
@@ -4449,7 +4449,7 @@ class Direo_SingleTag extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
             ]
         );
@@ -4460,7 +4460,7 @@ class Direo_SingleTag extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
             ]
         );
@@ -4758,7 +4758,7 @@ class Direo_SingleTagMap extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['general'],
             ]
         );
@@ -4769,7 +4769,7 @@ class Direo_SingleTagMap extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'general',
             ]
         );
@@ -5121,7 +5121,7 @@ class Direo_Subscribe extends Widget_Base
             [
                 'label'       => __('Mailchimp Form Action Url', 'direo-core'),
                 'type'        => Controls_Manager::URL,
-                'description' => function_exists('mail_desc') ? mail_desc() : '',
+                'description' => function_exists('mail_desc') ? direo_mail_desc() : '',
             ]
         );
 
@@ -5358,7 +5358,7 @@ class CTA extends Widget_Base
     protected function render()
     {
         $settings   = $this->get_settings_for_display();
-        az_template('/elementor/cta/view', $settings);
+        direo_az_template('/elementor/cta/view', $settings);
     }
 }
 
@@ -5405,7 +5405,7 @@ class direo_NeedCategories extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['need-listings'],
             ]
         );
@@ -5416,7 +5416,7 @@ class direo_NeedCategories extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'need-listings',
             ]
         );
@@ -5618,7 +5618,7 @@ class direo_NeedLocations extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['need-listings'],
             ]
         );
@@ -5629,7 +5629,7 @@ class direo_NeedLocations extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'need-listings',
             ]
         );
@@ -5812,7 +5812,7 @@ class direo_NeedSingleCat extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['need-listings'],
             ]
         );
@@ -5823,7 +5823,7 @@ class direo_NeedSingleCat extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'need-listings',
             ]
         );
@@ -5906,7 +5906,7 @@ class direo_NeedSingleLoc extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['need-listings'],
             ]
         );
@@ -5917,7 +5917,7 @@ class direo_NeedSingleLoc extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'need-listings',
             ]
         );
@@ -6000,7 +6000,7 @@ class direo_Needs extends Widget_Base
                 'label'    => __('Specify Listing Types', 'direo-core'),
                 'type'     => Controls_Manager::SELECT2,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => ['need-listings'],
             ]
         );
@@ -6011,7 +6011,7 @@ class direo_Needs extends Widget_Base
                 'label'    => __('Set Default Listing Type', 'direo-core'),
                 'type'     => Controls_Manager::SELECT,
                 'multiple' => true,
-                'options'  => function_exists('directorist_listing_types') ? directorist_listing_types() : [],
+                'options'  => function_exists('direo_directorist_listing_types') ? direo_directorist_listing_types() : [],
                 'default'  => 'need-listings',
             ]
         );
