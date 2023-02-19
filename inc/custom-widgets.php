@@ -314,6 +314,9 @@ class direo_connect_follow_widget extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
+		if ( ! class_exists( 'Directorist_Base' ) ) {
+			return;
+		}
 		$title = ( ! empty( $instance['title'] ) ) ? $instance['title'] : '';
 		?>
 		<div class="widget-wrapper">
@@ -435,6 +438,9 @@ class direo_search_widget extends WP_Widget {
 	}
 
 	public function widget( $args, $instance ) {
+		if ( ! class_exists( 'Directorist_Base' ) ) {
+			return;
+		}
 		?>
 		<div class="widget-wrapper">
 			<div class="search-widget">
@@ -498,7 +504,7 @@ class direo_social_profile_widget extends WP_Widget {
 						<li>
 							<a href="<?php echo esc_url( $link_url ); ?>" target="_blank">
 								<span class="instagram" style="color: <?php echo esc_attr( $s_color ); ?>">
-									<?php directorist_icon( 'fa fa-' . $link_text, true, "icon_index{$i}_{$rand_number}" ); ?>
+									<?php class_exists( 'Directorist_Base' ) ? directorist_icon( 'fa fa-' . $link_text, true, "icon_index{$i}_{$rand_number}" ) : ''; ?>
 								</span>
 								<?php echo esc_html( $s_title ); ?>
 							</a>
@@ -615,7 +621,7 @@ class direo_widget_button extends WP_Widget {
 					?>
 					<li>
 						<a href="<?php echo esc_url( $btn_url ); ?>" class="btn btn-sm btn-icon <?php echo esc_html( $btn_type ); ?>">
-							<?php directorist_icon( 'fa fa-' . $icon ); ?>
+							<?php class_exists( 'Directorist_Base' ) ? directorist_icon( 'fa fa-' . $icon ) : ''; ?>
 						<?php echo esc_html( $btn_text ); ?></a>
 					</li>
 					<?php

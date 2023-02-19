@@ -26,7 +26,7 @@ final class DireoWidgets {
 
 	public function init() {
 		// Add Plugin actions
-		add_action( 'elementor/widgets/widgets_registered', array( $this, 'init_widgets' ) );
+		add_action( 'elementor/widgets/register', array( $this, 'init_widgets' ) );
 		add_action( 'elementor/elements/categories_registered', array( $this, 'direo_widget_category' ) );
 	}
 

@@ -465,6 +465,9 @@ if ( ! function_exists( 'direo_related_post' ) ) {
 
 if ( ! function_exists( 'direo_share_post' ) ) {
 	function direo_share_post() {
+		if ( ! class_exists( 'Directorist_Base' ) ) {
+			return;
+		}
 		?>
 		<div class="social-share d-flex align-items-center">
 			<span class="m-right-15"> <?php esc_html_e( 'Share Post:', 'direo-core' ); ?> </span>
