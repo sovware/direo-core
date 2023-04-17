@@ -53,7 +53,7 @@ $locations = get_categories( $args );
 							<?php } ?>
 							<div>
 								<a href="<?php echo esc_url( $link ); ?>" class="stretched-link"><?php echo esc_attr( $location ); ?> 
-									<?php directorist_icon( 'las la-long-arrow-alt-right' ); ?>
+									<?php class_exists( 'Directorist_Base' ) ? directorist_icon( 'las la-long-arrow-alt-right' ) : ''; ?>
 								</a>
 								<?php echo wp_kses_post( $count ); ?>
 							</div>

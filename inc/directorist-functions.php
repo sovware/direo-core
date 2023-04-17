@@ -30,10 +30,10 @@ function direo_listings_map_view_as() {
 	?>
 	<div class="view-mode-2 view-as">
 		<a data-view="grid" class="action-btn-2 ab-grid map-view-grid <?php echo 'grid' == $view_as ? esc_html( 'active' ) : ''; ?>">
-			<?php directorist_icon( "la la-th-large" ); ?>
+			<?php class_exists( 'Directorist_Base' ) ? directorist_icon( "la la-th-large" ) : ''; ?>
 		</a>
 		<a data-view="list" class="action-btn-2 ab-list map-view-list <?php echo 'list' == $view_as ? esc_html( 'active' ) : ''; ?>">
-			<?php directorist_icon( "la la-list" ); ?>
+			<?php class_exists( 'Directorist_Base' ) ? directorist_icon( "la la-list" ) : ''; ?>
 		</a>
 	</div>
 	<?php
@@ -1232,9 +1232,9 @@ function direo_directorist_dashboard_listing_td_2() {
 		<ul class="rating">
 			<?php
 			$average   = ATBDP()->review->get_average( get_the_ID() );
-			$star      = directorist_icon( 'las la-star', false,'rate_active' );
-			$half_star = directorist_icon( 'las la-star-half-alt', false,'rate_active rate_active-half' );
-			$none_star = directorist_icon( 'lar la-star', false );
+			$star      = class_exists( 'Directorist_Base' ) ? directorist_icon( 'las la-star', false,'rate_active' ) : '';
+			$half_star = class_exists( 'Directorist_Base' ) ? directorist_icon( 'las la-star-half-alt', false,'rate_active rate_active-half' ) : '';
+			$none_star = class_exists( 'Directorist_Base' ) ? directorist_icon( 'lar la-star', false ) : '';
 
 			if ( is_int( $average ) ) {
 				for ( $i = 1; $i <= 5; $i++ ) {

@@ -337,7 +337,7 @@ class direo_connect_follow_widget extends WP_Widget {
 									?>
 									<li>
 										<a href="<?php echo esc_url( $link_url ); ?>" class="<?php echo esc_attr( $link_text ); ?>" target="_blank">
-											<?php directorist_icon( 'fa fa-' . $link_text ); ?>
+											<?php class_exists( 'Directorist_Base' ) ?  directorist_icon( 'fa fa-' . $link_text ) : ''; ?>
 										</a>
 									</li>
 									<?php
@@ -450,7 +450,7 @@ class direo_search_widget extends WP_Widget {
 							class="fc--rounded"
 							placeholder="<?php echo esc_attr_x( 'Search', 'placeholder', 'direo-core' ); ?>">
 						<button value="search" type="submit">
-							<?php directorist_icon( 'la la-search' ); ?>
+							<?php class_exists( 'Directorist_Base' ) ?  directorist_icon( 'la la-search' ) : ''; ?>
 						</button>
 					</div>
 				</form>

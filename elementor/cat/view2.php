@@ -37,7 +37,7 @@ $categories = get_categories( $args );
 			?>
 
 			<div class="category-slider__single">
-				<?php directorist_icon( $icon, true, ( "category-icon ". $bg_color ) ); ?>
+				<?php class_exists( 'Directorist_Base' ) ? directorist_icon( $icon, true, ( "category-icon ". $bg_color ) ) : ''; ?>
 				<a href="<?php echo esc_url( $link ); ?>" class="stretched-link"><?php echo esc_attr( $cat->name ); ?></a>
 				<?php echo wp_kses_post( $cat_count ); ?>
 			</div>

@@ -349,7 +349,7 @@ function direo_vb_reg_new_user() {
 			update_user_meta( $user_id, '_atbdp_generated_password', $password );
 			wp_new_user_notification($user_id, null, 'admin');
 			ATBDP()->email->direo_custom_wp_new_user_notification_email($user_id);
-			
+
 			$data['state'] 			= true;
 			$data['message'] 		= __( 'Registration completed, redirecting..', 'direo-core' );
 			$data['redirect_url'] 	= $redirect_url;
@@ -474,17 +474,17 @@ if ( ! function_exists( 'direo_share_post' ) ) {
 			<ul class="social-share list-unstyled">
 				<li>
 					<a href="https://www.facebook.com/sharer/sharer.php?u=<?php the_permalink(); ?>" target="_blank" title="<?php esc_html_e( 'Facebook', 'direo-core' ); ?>">
-						<?php directorist_icon( 'fab fa-facebook-f' ); ?>
+						<?php class_exists( 'Directorist_Base' ) ? directorist_icon( 'fab fa-facebook-f' ) : ''; ?>
 					</a>
 				</li>
 				<li>
 					<a href="https://twitter.com/intent/tweet?url=<?php the_permalink(); ?>&text=<?php echo htmlspecialchars( urlencode( html_entity_decode( get_the_title(), ENT_COMPAT, 'UTF-8' ) ), ENT_COMPAT, 'UTF-8' ); ?>" target="_blank" title="<?php esc_html_e( 'Tweet', 'direo-core' ); ?>">
-						<?php directorist_icon( 'fab fa-twitter' ); ?>
+						<?php class_exists( 'Directorist_Base' ) ? directorist_icon( 'fab fa-twitter' ) : ''; ?>
 					</a>
 				</li>
 				<li>
 					<a href="http://linkedin.com/shareArticle?mini=true&amp;url=<?php the_permalink(); ?>" target="_blank" title="<?php esc_html_e( 'LinkedIn', 'direo-core' ); ?>">
-						<?php directorist_icon( 'fab fa-linkedin-in' ); ?>
+						<?php class_exists( 'Directorist_Base' ) ? directorist_icon( 'fab fa-linkedin-in' ) : ''; ?>
 					</a>
 				</li>
 			</ul>
@@ -522,7 +522,7 @@ if ( ! function_exists( 'direo_author_social' ) ) {
 				<?php if ( $facebook != '' ) { ?>
 					<li>
 						<a href="<?php echo esc_url( $facebook ); ?>">
-							<?php directorist_icon( 'fab fa-facebook-f' ); ?>
+							<?php class_exists( 'Directorist_Base' ) ? directorist_icon( 'fab fa-facebook-f' ) : ''; ?>
 						</a>
 					</li>
 					<?php
@@ -530,7 +530,7 @@ if ( ! function_exists( 'direo_author_social' ) ) {
 				if ( $twitter != '' ) { ?>
 					<li>
 						<a href="<?php echo esc_url( $twitter ); ?>">
-							<?php directorist_icon( 'fab fa-twitter' ); ?>
+							<?php class_exists( 'Directorist_Base' ) ? directorist_icon( 'fab fa-twitter' ) : ''; ?>
 						</a>
 					</li>
 					<?php
@@ -538,7 +538,7 @@ if ( ! function_exists( 'direo_author_social' ) ) {
 				if ( $linkedin !== '' ) { ?>
 					<li>
 						<a href="<?php echo esc_url( $linkedin ); ?>">
-							<?php directorist_icon( 'fab fa-linkedin-in' ); ?>
+							<?php class_exists( 'Directorist_Base' ) ? directorist_icon( 'fab fa-linkedin-in' ) : ''; ?>
 						</a>
 					</li>
 					<?php
@@ -547,7 +547,7 @@ if ( ! function_exists( 'direo_author_social' ) ) {
 					?>
 					<li>
 						<a href="<?php echo esc_url( $google_plus ); ?>">
-							<?php directorist_icon( 'fab fa-google-plus-g' ); ?>
+							<?php class_exists( 'Directorist_Base' ) ? directorist_icon( 'fab fa-google-plus-g' ) : ''; ?>
 						</a>
 					</li>
 					<?php
