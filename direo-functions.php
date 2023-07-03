@@ -21,7 +21,9 @@ function direo_core_textdomain() {
 
 add_action( 'plugins_loaded', 'direo_core_textdomain' );
 
-if ( wp_get_theme()->Name !== 'Direo') {
+$theme = wp_get_theme();
+$parent_theme = $theme->parent();
+if ($theme->Name !== 'Direo' && (!is_object($parent_theme) || $parent_theme->Name !== 'Direo')) {
     return;
 }
 
