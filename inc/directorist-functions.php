@@ -1321,3 +1321,15 @@ function direo_directorist_listing_types() {
 	}
 	return $types;
 }
+
+function direo_wpwax_run_shortcode( $shortcode, $atts = array() ) {
+	$html = '';
+
+	foreach ( $atts as $key => $value ) {
+		$html .= sprintf( ' %s="%s"', $key, esc_html( $value ) );
+	}
+
+	$html = sprintf( '[%s%s]', $shortcode, $html );
+
+	echo do_shortcode( $html );
+}

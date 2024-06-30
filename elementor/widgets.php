@@ -3,6 +3,7 @@ use Elementor\Controls_Manager;
 use Elementor\Core\Schemes;
 use Elementor\Repeater;
 use Elementor\Widget_Base;
+use Directorist\Helper;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -1999,8 +2000,66 @@ class Direo_Listings extends Widget_Base
 
     protected function render()
     {
-        $settings   = $this->get_settings_for_display();
-        direo_az_template('/elementor/listings/view', $settings);
+        $data   = $this->get_settings_for_display();
+        
+        $atts = [
+            'header'            => $data['header'],
+            'show_pagination'   => $data['show_pagination'],
+            'header_title'      => $data['title'],
+            'advanced_filter'   => $data['filter'],
+            'view'              => $data['layout'],
+            'listings_per_page' => $data['number_cat'],
+            'columns'           => $data['row'],
+            'category'          => $data['cat'] ? implode( ',', $data['cat'] ) : '',
+            'location'          => $data['location'] ? implode( ',', $data['location'] ) : '',
+            'tag'               => $data['tag'] ? implode( ',', $data['tag'] ) : '',
+            'featured_only'     => $data['featured'],
+            'popular_only'      => $data['popular'],
+            'orderby'           => $data['order_by'],
+            'order'             => $data['order_list'],
+            'map_height'        => $data['map_height'],
+            'user'              => $data['user'],
+            'sidebar'           => $data['sidebar'],
+            'is_elementor'      => true,
+        ];
+
+        if ( Helper::multi_directory_enabled() ) {
+            if ( $data['types'] ) {
+                $atts['directory_type'] = $data['types'];
+            }
+            if ( $data['default_types'] ) {
+                $atts['directory_type'] = $data['default_types'];
+            }
+        }
+
+        if ( ! empty( $data['view_more_url'] ) ) {
+            $attr  = 'href="' . $data['view_more_url']['url'] . '"';
+            $attr .= ! empty( $data['view_more_url']['is_external'] ) ? ' target="_blank"' : '';
+            $attr .= ! empty( $data['view_more_url']['nofollow'] ) ? ' rel="nofollow"' : '';
+        }
+
+        if ( 'carousel' === $data['layout'] ) {
+            add_filter( 'all_listings_wrapper', 'all_listings_wrapper' );
+            add_filter( 'all_listings_column', function(){ return ''; } );
+
+            $section_title   = $data['section_title'];
+            $view_more_label = $data['view_more_label'];
+
+            if ( $section_title || $view_more_label ) { ?>
+                <div class="all_listing_header">
+                    <h1><?php echo esc_html( $section_title ); ?></h1>
+                    <a <?php echo $attr; ?>> <?php echo esc_html( $view_more_label ); ?> </a>
+                </div>
+                <?php
+            }
+        }
+        ?>
+
+        <div id="<?php echo esc_attr( 'listing-' . $data['layout'] ); ?>">
+            <?php direo_wpwax_run_shortcode( 'directorist_all_listing', $atts ); ?>
+        </div>
+
+        <?php
     }
 }
 
