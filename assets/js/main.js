@@ -6,8 +6,8 @@ jQuery(document).ready(function(){
       items: 6,
       nav: true,
       navText: [
-        '<i class="directorist-icon-mask category-icon  color-3" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-left-solid.svg)"></i>',
-        '<i class="directorist-icon-mask category-icon  color-3" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-right-solid.svg)"></i>',
+        '<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-left-solid.svg)"></i>',
+        '<i class="directorist-icon-mask" aria-hidden="true" style="--directorist-icon: url(' +  directorist.assets_url + 'icons/line-awesome/svgs/angle-right-solid.svg)"></i>',
       ],
       dots: true,
       margin: 30,
