@@ -1,6 +1,5 @@
 <?php
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes;
 use Elementor\Repeater;
 use Elementor\Widget_Base;
 use Directorist\Helper;
@@ -140,10 +139,6 @@ class Direo_Heading extends Widget_Base
             [
                 'label'  => __('Title  Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_3,
-                ],
                 'selectors' => [
                     '{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}};',
                 ],
@@ -155,10 +150,7 @@ class Direo_Heading extends Widget_Base
             [
                 'label'  => __('Subtitle  Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_4,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} p' => 'color: {{VALUE}};',
                 ],
@@ -291,10 +283,6 @@ class Direo_Accordion extends Widget_Base
                 'selectors' => [
                     '.atbdp-accordion .dacc_single h3 a' => 'color: {{VALUE}};',
                 ],
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_3,
-                ],
             ]
         );
 
@@ -306,10 +294,7 @@ class Direo_Accordion extends Widget_Base
                 'selectors' => [
                     '.atbdp-accordion .dacc_single h3 a.active' => 'color: {{VALUE}};',
                 ],
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_2,
-                ],
+                
             ]
         );
 
@@ -330,10 +315,6 @@ class Direo_Accordion extends Widget_Base
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '.atbdp-accordion .dacc_single .dac_body' => 'color: {{VALUE}};',
-                ],
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_3,
                 ],
             ]
         );
@@ -1576,10 +1557,7 @@ class Direo_FeatureBox extends Widget_Base
             [
                 'label'  => __('Icon  Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_2,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .list-unstyled .circle-secondary, {{WRAPPER}} .list-unstyled .list-count span' => 'color: {{VALUE}};',
                 ],
@@ -1591,10 +1569,7 @@ class Direo_FeatureBox extends Widget_Base
             [
                 'label'  => __('Icon Background  Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .kcel-feature-boxes .circle-secondary, {{WRAPPER}} .feature-box-wrapper .icon' => 'background: {{VALUE}};',
                 ],
@@ -2913,10 +2888,6 @@ class Direo_SearchForm extends Widget_Base
             [
                 'label'  => __('Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_3,
-                ],
                 'selectors' => [
                     '{{WRAPPER}} .directorist-search-contents .directorist-listing-category-top ul li a p,
                     {{WRAPPER}} .directorist-listing-type-selection__link,
