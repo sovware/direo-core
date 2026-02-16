@@ -1800,7 +1800,7 @@ class Direo_Listings extends Widget_Base
                 'type'      => Controls_Manager::SWITCHER,
                 'default'   => 'no',
                 'condition' => [
-                    'layout!' => 'map'
+                    'layout!' => ['map', 'carousel']
                 ]
             ]
         );
