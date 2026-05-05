@@ -7,7 +7,7 @@ Author: wpWax
 Author URI: https://wpwax.com
 Domain Path: /languages
 Text Domain: direo-core
-Version: 2.16
+Version: 3.1
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -29,8 +29,11 @@ if ($theme->Name !== 'Direo' && (!is_object($parent_theme) || $parent_theme->Nam
 
 require_once plugin_dir_path( __FILE__ ) . 'inc/custom-widgets.php';
 require_once plugin_dir_path( __FILE__ ) . 'inc/directorist-functions.php';
-require_once plugin_dir_path( __FILE__ ) . 'inc/demo-importer.php';
 require_once plugin_dir_path( __FILE__ ) . 'elementor/direo-elementor.php';
+
+if ( is_admin() ) {
+	require_once plugin_dir_path( __FILE__ ) . 'inc/demo-importer.php';
+}
 
 /* Plugin scripts */
 function direo_core_scripts() {
@@ -403,16 +406,17 @@ if ( ! function_exists( 'direo_post_navigation' ) ) {
 
 if ( ! function_exists( 'direo_related_post' ) ) {
 	function direo_related_post() {
-		$categories = array();
-		foreach ( get_the_category( get_the_ID() ) as $category ) {
-			$categories[] = $category->term_id;
-		};
-		wp_reset_postdata();
+		$categories = wp_get_post_categories( get_the_ID() );
+
+		if ( empty( $categories ) ) {
+			return;
+		}
 
 		$args	= array(
 			'post__not_in'        => array( get_the_ID() ),
 			'posts_per_page'      => 3,
 			'ignore_sticky_posts' => 1,
+			'no_found_rows'       => true,
 			'tax_query'           => array(
 				array(
 					'taxonomy' => 'category',

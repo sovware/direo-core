@@ -1,8 +1,8 @@
 <?php
 use Elementor\Controls_Manager;
-use Elementor\Core\Schemes;
 use Elementor\Repeater;
 use Elementor\Widget_Base;
+use Directorist\Helper;
 
 if (!defined('ABSPATH')) {
     exit;
@@ -139,10 +139,6 @@ class Direo_Heading extends Widget_Base
             [
                 'label'  => __('Title  Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_3,
-                ],
                 'selectors' => [
                     '{{WRAPPER}} h1, {{WRAPPER}} h2, {{WRAPPER}} h3, {{WRAPPER}} h4, {{WRAPPER}} h5, {{WRAPPER}} h6' => 'color: {{VALUE}};',
                 ],
@@ -154,10 +150,7 @@ class Direo_Heading extends Widget_Base
             [
                 'label'  => __('Subtitle  Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_4,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} p' => 'color: {{VALUE}};',
                 ],
@@ -290,10 +283,6 @@ class Direo_Accordion extends Widget_Base
                 'selectors' => [
                     '.atbdp-accordion .dacc_single h3 a' => 'color: {{VALUE}};',
                 ],
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_3,
-                ],
             ]
         );
 
@@ -305,10 +294,7 @@ class Direo_Accordion extends Widget_Base
                 'selectors' => [
                     '.atbdp-accordion .dacc_single h3 a.active' => 'color: {{VALUE}};',
                 ],
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_2,
-                ],
+                
             ]
         );
 
@@ -329,10 +315,6 @@ class Direo_Accordion extends Widget_Base
                 'type'      => Controls_Manager::COLOR,
                 'selectors' => [
                     '.atbdp-accordion .dacc_single .dac_body' => 'color: {{VALUE}};',
-                ],
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_3,
                 ],
             ]
         );
@@ -664,7 +646,8 @@ class Direo_Blogs extends Widget_Base
             'post_type'      => 'post',
             'posts_per_page' => esc_attr($post_count),
             'order'          => esc_attr($order_list),
-            'orderby '       => esc_attr($order_by)
+            'orderby '       => esc_attr($order_by),
+            'no_found_rows'  => true,
         );
 
         $posts = new WP_Query($args); ?>
@@ -1575,10 +1558,7 @@ class Direo_FeatureBox extends Widget_Base
             [
                 'label'  => __('Icon  Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_2,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .list-unstyled .circle-secondary, {{WRAPPER}} .list-unstyled .list-count span' => 'color: {{VALUE}};',
                 ],
@@ -1590,10 +1570,7 @@ class Direo_FeatureBox extends Widget_Base
             [
                 'label'  => __('Icon Background  Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_1,
-                ],
+                
                 'selectors' => [
                     '{{WRAPPER}} .kcel-feature-boxes .circle-secondary, {{WRAPPER}} .feature-box-wrapper .icon' => 'background: {{VALUE}};',
                 ],
@@ -1824,7 +1801,7 @@ class Direo_Listings extends Widget_Base
                 'type'      => Controls_Manager::SWITCHER,
                 'default'   => 'no',
                 'condition' => [
-                    'layout!' => 'map'
+                    'layout!' => ['map', 'carousel']
                 ]
             ]
         );
@@ -1999,8 +1976,66 @@ class Direo_Listings extends Widget_Base
 
     protected function render()
     {
-        $settings   = $this->get_settings_for_display();
-        direo_az_template('/elementor/listings/view', $settings);
+        $data   = $this->get_settings_for_display();
+        
+        $atts = [
+            'header'            => $data['header'],
+            'show_pagination'   => $data['show_pagination'],
+            'header_title'      => $data['title'],
+            'advanced_filter'   => $data['filter'],
+            'view'              => $data['layout'],
+            'listings_per_page' => $data['number_cat'],
+            'columns'           => $data['row'],
+            'category'          => $data['cat'] ? implode( ',', $data['cat'] ) : '',
+            'location'          => $data['location'] ? implode( ',', $data['location'] ) : '',
+            'tag'               => $data['tag'] ? implode( ',', $data['tag'] ) : '',
+            'featured_only'     => $data['featured'],
+            'popular_only'      => $data['popular'],
+            'orderby'           => $data['order_by'],
+            'order'             => $data['order_list'],
+            'map_height'        => $data['map_height'],
+            'user'              => $data['user'],
+            'sidebar'           => $data['sidebar'],
+            'is_elementor'      => true,
+        ];
+
+        if ( Helper::multi_directory_enabled() ) {
+            if ( $data['types'] ) {
+                $atts['directory_type'] = $data['types'];
+            }
+            if ( $data['default_types'] ) {
+                $atts['directory_type'] = $data['default_types'];
+            }
+        }
+
+        if ( ! empty( $data['view_more_url'] ) ) {
+            $attr  = 'href="' . $data['view_more_url']['url'] . '"';
+            $attr .= ! empty( $data['view_more_url']['is_external'] ) ? ' target="_blank"' : '';
+            $attr .= ! empty( $data['view_more_url']['nofollow'] ) ? ' rel="nofollow"' : '';
+        }
+
+        if ( 'carousel' === $data['layout'] ) {
+            add_filter( 'all_listings_wrapper', 'all_listings_wrapper' );
+            add_filter( 'all_listings_column', function(){ return ''; } );
+
+            $section_title   = $data['section_title'];
+            $view_more_label = $data['view_more_label'];
+
+            if ( $section_title || $view_more_label ) { ?>
+                <div class="all_listing_header">
+                    <h1><?php echo esc_html( $section_title ); ?></h1>
+                    <a <?php echo $attr; ?>> <?php echo esc_html( $view_more_label ); ?> </a>
+                </div>
+                <?php
+            }
+        }
+        ?>
+
+        <div id="<?php echo esc_attr( 'listing-' . $data['layout'] ); ?>">
+            <?php direo_wpwax_run_shortcode( 'directorist_all_listing', $atts ); ?>
+        </div>
+
+        <?php
     }
 }
 
@@ -2854,10 +2889,6 @@ class Direo_SearchForm extends Widget_Base
             [
                 'label'  => __('Color', 'direo-core'),
                 'type'   => Controls_Manager::COLOR,
-                'scheme' => [
-                    'type'  => Schemes\Color::get_type(),
-                    'value' => Schemes\Color::COLOR_3,
-                ],
                 'selectors' => [
                     '{{WRAPPER}} .directorist-search-contents .directorist-listing-category-top ul li a p,
                     {{WRAPPER}} .directorist-listing-type-selection__link,
