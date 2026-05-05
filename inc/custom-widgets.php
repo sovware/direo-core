@@ -101,6 +101,8 @@ class direo_popular_post_widget extends WP_Widget {
 				'orderby'        => 'meta_value_num',
 				'post__not_in'   => get_option( 'sticky_posts' ),
 				'order'          => 'DESC',
+				'no_found_rows'          => true,
+				'update_post_term_cache' => false,
 			)
 		);
 		?>
@@ -212,6 +214,8 @@ class direo_latest_post_widget extends WP_Widget {
 				'post_type'      => 'post',
 				'post__not_in'   => get_option( 'sticky_posts' ),
 				'order'          => 'DESC',
+				'no_found_rows'          => true,
+				'update_post_term_cache' => false,
 			)
 		);
 		?>
