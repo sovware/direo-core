@@ -59,7 +59,7 @@ class DireoDemo_Importer {
 			),
 		);
 
-		$remote_server_url = get_template_directory_uri() . '/demo-content';
+		$remote_server_url = get_theme_file_uri( 'demo-content' );
 
 		foreach ( $demos_array as $id => $data ) {
 			$demo = new FW_Ext_Backups_Demo(
