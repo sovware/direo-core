@@ -7,7 +7,7 @@ Author: wpWax
 Author URI: https://wpwax.com
 Domain Path: /languages
 Text Domain: direo-core
-Version: 3.1
+Version: 3.2
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
